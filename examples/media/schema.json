@@ -50,7 +50,6 @@
               "properties": {
                 "items": {
                   "isRequired": true,
-                  "description": "media identifier",
                   "type": "array",
                   "items": {
                     "type": "string",
@@ -70,7 +69,6 @@
             "parameters": {
               "properties": {
                 "items": {
-                  "description": "media identifier",
                   "type": "array",
                   "items": {
                     "type": "string",
@@ -209,28 +207,23 @@
             "parameters": {
               "properties": {
                 "media": {
-                  "description": "media collection object",
                   "type": "string",
                   "format": "uri"
                 },
                 "mediaindex": {
-                  "description": "DEPRECATED index of actual media object if media is a collection",
                   "type": "integer",
                   "minimum": 0
                 },
                 "currentMediaItem": {
-                  "description": "see model description",
                   "type": "string",
                   "format": "uri"
                 },
                 "offset": {
-                  "description": "current offset",
                   "type": "integer",
                   "minimum": 0,
                   "unit": "ms"
                 },
                 "state": {
-                  "description": "media renderers playback state",
                   "type": "string",
                   "enum": [
                   "idle",
@@ -242,7 +235,6 @@
                   ]
                 },
                 "repeat": {
-                  "description": "repeat mode",
                   "type": "string",
                   "enum": [
                   "off",
@@ -251,7 +243,6 @@
                   ]
                 },
                 "shuffle": {
-                  "description": "shuffle mode",
                   "type": "string",
                   "enum": [
                   "on",
@@ -259,7 +250,6 @@
                   ]
                 },
                 "scan": {
-                  "description": "scanning mode",
                   "type": "string",
                   "enum": [
                   "off",
