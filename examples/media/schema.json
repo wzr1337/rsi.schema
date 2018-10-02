@@ -208,6 +208,9 @@
         "resource": {
           "get": {
             "parameters": {}
+          },
+          "subscribe": {
+            "parameters": {}
           }
         },
         "element": {
@@ -282,13 +285,12 @@
           },
           "get": {
             "parameters": {}
+          },
+          "subscribe": {
+            "parameters": {}
           }
         }
-      },
-      "systemTriggeredEvents": [
-      "element",
-      "resource"
-      ]
+      }
     }
   }
 }
