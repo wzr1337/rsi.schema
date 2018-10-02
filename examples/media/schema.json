@@ -56,10 +56,16 @@
                   }
                 }
               }
-            }
+            },
+            "scopesNeeded": [
+              "MEDIA_WRITE"
+            ]
           },
           "get": {
-            "parameters": {}
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_READ"
+            ]
           }
         },
         "element": {
@@ -75,13 +81,22 @@
                   }
                 }
               }
-            }
+            },
+            "scopesNeeded": [
+              "MEDIA_WRITE"
+            ]
           },
           "get": {
-            "parameters": {}
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_READ"
+            ]
           },
           "delete": {
-            "parameters": {}
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_WRITE"
+            ]
           }
         }
       }
@@ -194,10 +209,16 @@
       "endpoints": {
         "resource": {
           "get": {
-            "parameters": {}
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_READ"
+            ]
           },
           "subscribe": {
-            "parameters": {}
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_READ"
+            ]
           }
         },
         "element": {
@@ -256,13 +277,22 @@
                   ]
                 }
               }
-            }
+            },
+            "scopesNeeded": [
+              "MEDIA_WRITE"
+            ]
           },
           "get": {
-            "parameters": {}
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_READ"
+            ]
           },
           "subscribe": {
-            "parameters": {}
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_READ"
+            ]
           }
         }
       }
