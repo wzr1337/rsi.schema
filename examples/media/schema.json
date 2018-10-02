@@ -47,13 +47,9 @@
           "post": {
             "description": "media can be any media object. All `encapsulating` media objects like album, playlist etc. will be flattend to root level of mediacollection. E.g. if a playlist contains track A and B, the tracks A and B will be added to the mediacollection. Changing an existing mediaCollectionObject would mean a modification of its `items` property content (e.g. adding or removing items from an existing collection)",
             "parameters": {
-              "resource": "media.collections",
-              "method": "post",
-              "required": [
-              "items"
-              ],
               "properties": {
                 "items": {
+                  "isRequired": true,
                   "description": "media identifier",
                   "type": "array",
                   "items": {
@@ -72,11 +68,6 @@
           "post": {
             "description": "Media can be any media object. All 'encapsulating' media objects like album, playlist, source etc. will be flattend to root level of mediacollection. E.g. if a playlist contains track A and B, the tracks A and B will be added to the mediacollection.",
             "parameters": {
-              "resource": "media.collections",
-              "method": "post",
-              "required": [
-              "items"
-              ],
               "properties": {
                 "items": {
                   "description": "media identifier",
@@ -216,10 +207,6 @@
         "element": {
           "post": {
             "parameters": {
-              "resource": "media.renderers",
-              "method": "post",
-              "description": "",
-              "required": [],
               "properties": {
                 "media": {
                   "description": "media collection object",
