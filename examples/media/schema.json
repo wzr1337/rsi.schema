@@ -7,7 +7,6 @@
       "description": "The media collections can also be understood as media queues of the renderer. Media collections can only contain playable media like tracks, videos or pictures.",
       "objectModel": {
         "name": "mediaCollectionObject",
-        "resource": "media.collections",
         "properties": {
           "id": {
             "description": "collection id",
@@ -103,7 +102,6 @@
       "description": "The media player renderer can be understood as the actual media player. It accepts media objects and applies actions like play, pause etc. to them.",
       "objectModel": {
         "name": "rendererObject",
-        "resource": "media.renderers",
         "properties": {
           "id": {
             "description": "renderer id",
