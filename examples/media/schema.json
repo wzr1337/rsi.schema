@@ -7,38 +7,38 @@
       "name": "collections",
       "description": "The media collections can also be understood as media queues of the renderer. Media collections can only contain playable media like tracks, videos or pictures.",
       "objectModel": {
-          "id": {
-            "description": "collection id",
-            "type": "string",
-            "format": "uuid"
-          },
-          "name": {
-            "description": "collection name",
-            "type": "string"
-          },
-          "uri": {
-            "description": "object uri",
-            "type": "string",
-            "format": "uri"
-          },
+        "id": {
+          "description": "collection id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "description": "collection name",
+          "type": "string"
+        },
+        "uri": {
+          "description": "object uri",
+          "type": "string",
+          "format": "uri"
+        },
+        "items": {
+          "description": "media collection items",
+          "type": "array",
           "items": {
-            "description": "media collection items",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "oneOf": [
-              {
-                "#ref": "medialibrary.videos.<element>"
-              },
-              {
-                "#ref": "medialibrary.pictures.<element>"
-              },
-              {
-                "#ref": "medialibrary.tracks.<element>"
-              }
-              ]
+            "type": "object",
+            "oneOf": [
+            {
+              "#ref": "medialibrary.videosObject"
+            },
+            {
+              "#ref": "medialibrary.picturesObject"
+            },
+            {
+              "#ref": "medialibrary.tracksObject"
             }
+            ]
           }
+        }
       },
       "endpoints": {
         "resource": {
@@ -123,7 +123,7 @@
             "type": "object",
             "oneOf": [
             {
-              "#ref": "media.collections.<element>"
+              "#ref": "media.collectionsObject"
             }
             ]
           },
@@ -137,16 +137,16 @@
             "type": "object",
             "oneOf": [
             {
-              "#ref": "medialibrary.videos.<element>"
+              "#ref": "medialibrary.videosObject"
             },
             {
-              "#ref": "medialibrary.sources.<element>"
+              "#ref": "medialibrary.sourcesObject"
             },
             {
-              "#ref": "medialibrary.pictures.<element>"
+              "#ref": "medialibrary.picturesObject"
             },
             {
-              "#ref": "medialibrary.tracks.<element>"
+              "#ref": "medialibrary.tracksObject"
             }
             ]
           },
