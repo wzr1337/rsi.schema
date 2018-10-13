@@ -13,7 +13,10 @@
           "pattern": "^(viwi|rsi)\\.service\\.[a-zA-Z0-9]+$"
         },
         "resources": {
-          "$ref": "#/definitions/resourcesDefinition"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/resourcesDefinition"
+          }
         },
         "types": {
           "$ref": "#/definitions/typesDefinition"
@@ -99,7 +102,8 @@
       },
       "patternProperties": {
         "^[a-zA-Z0-9]+$": {
-          "$ref": "#/definitions/objectPropertyDefinition"
+          "type": "object"
+          //"$ref": "#/definitions/objectPropertyDefinition"
         }
       },
       "additionalProperties": false,
