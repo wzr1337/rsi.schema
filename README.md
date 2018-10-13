@@ -10,6 +10,21 @@ The schema files publish on W3Cs github repo are redundant in data they hold, no
 
 Please feel free to jump in and contribute.
 
+## Using the cli
+
+```bash
+$ npm run validate -- examples/foo/schema.json
+```
+
+will run the validator against `examples/foo/schema.json`
+
+### validating media
+```bash
+$ npm run validate:media
+```
+
+will run the validator against the media example
+
 ## Migration
 
 The [examples](examples) folder holds original files and rewrites to illustrate the migration of the original to the new version.
