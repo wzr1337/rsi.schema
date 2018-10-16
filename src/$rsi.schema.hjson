@@ -79,6 +79,9 @@
           "required": ["description", "type", "format"]
         },
         "name": {
+          "type": "object",
+          "properties": {
+            "description": {
           "type": "string"
         },
         "uri": {
