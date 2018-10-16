@@ -15,7 +15,7 @@
         "resources": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/resourcesDefinition"
+            "$ref": "#/definitions/resourcesObjectDefinition"
           }
         },
         "types": {
@@ -31,18 +31,24 @@
       "required": ["description", "name", "$schema"],
       "additionalProperties": false
     },
-    "resourcesDefinition": {
+    "resourcesObjectDefinition": {
       "type": "object",
       "properties": {
+        "name": {
+          "type": "string"
+        }
         "description": {
           "type": "string"
         },
         "objectModel": {
           "$ref": "#/definitions/objectModelDefinition"
         }
+        "endpoints" : {
+          "$ref": "#/definitions/endpointsDefinition"
+        }
       },
-      "required": ["description"],
-      "additionalProperties": true
+      "required": ["description", "name"],
+      "additionalProperties": false
     },
     "typesDefinition": {
       "type": "object",
@@ -82,7 +88,9 @@
           "type": "object",
           "properties": {
             "description": {
-          "type": "string"
+              "type": "string"
+            }
+          }
         },
         "uri": {
           "type": "object",
@@ -105,8 +113,7 @@
       },
       "patternProperties": {
         "^[a-zA-Z0-9]+$": {
-          "type": "object"
-          //"$ref": "#/definitions/objectPropertyDefinition"
+          "$ref": "#/definitions/objectPropertyDefinition"
         }
       },
       "additionalProperties": false,
@@ -179,6 +186,9 @@
       },
       "additionalProperties": false,
       "required": ["description", "type"]
+    },
+    endpointsDefinition : {
+      "type": "object"
     }
   }
 }
