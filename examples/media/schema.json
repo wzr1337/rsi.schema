@@ -56,13 +56,13 @@
               }
             },
             "scopesNeeded": [
-              "MEDIA_WRITE"
+              "mediaWrite"
             ]
           },
           "get": {
             "parameters": {},
             "scopesNeeded": [
-              "MEDIA_READ"
+              "mediaRead"
             ]
           }
         },
@@ -81,19 +81,19 @@
               }
             },
             "scopesNeeded": [
-              "MEDIA_WRITE"
+              "mediaWrite"
             ]
           },
           "get": {
             "parameters": {},
             "scopesNeeded": [
-              "MEDIA_READ"
+              "mediaRead"
             ]
           },
           "delete": {
             "parameters": {},
             "scopesNeeded": [
-              "MEDIA_WRITE"
+              "mediaWrite"
             ]
           }
         }
@@ -207,13 +207,13 @@
           "get": {
             "parameters": {},
             "scopesNeeded": [
-              "MEDIA_READ"
+              "mediaRead"
             ]
           },
           "subscribe": {
             "parameters": {},
             "scopesNeeded": [
-              "MEDIA_READ"
+              "mediaRead"
             ]
           }
         },
@@ -275,19 +275,19 @@
               }
             },
             "scopesNeeded": [
-              "MEDIA_WRITE"
+              "mediaWrite"
             ]
           },
           "get": {
             "parameters": {},
             "scopesNeeded": [
-              "MEDIA_READ"
+              "mediaRead"
             ]
           },
           "subscribe": {
             "parameters": {},
             "scopesNeeded": [
-              "MEDIA_READ"
+              "mediaRead"
             ]
           }
         }
