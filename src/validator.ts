@@ -32,6 +32,8 @@ export async function validate(candidatePath?:string):Promise<any> {
   ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
 
   let validate = ajv.compile(readFile(path.join(__dirname, './$rsi.schema.json')));
+  // @TODO: To allow maintaining the validator separately from the schema, 
+  // it should be pulled from the server by th url referenced in the candidate
   
   let result = await validate(readFile(candidatePath));
  
