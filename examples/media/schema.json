@@ -2,9 +2,8 @@
   "name": "rsi.service.media",
   "description" : "",
   "$schema": "https://github.com/wzr1337/rsi.schema/blob/2.0.0/dist/$rsi.schema.json",
-  "resources" : [
-    {
-      "name": "collections",
+  "resources" : {
+    "collections": {
       "description": "The media collections can also be understood as media queues of the renderer. Media collections can only contain playable media like tracks, videos or pictures.",
       "objectModel": {
         "id": {
@@ -100,8 +99,7 @@
         }
       }
     },
-    {
-      "name": "renderers",
+    "renderers": {
       "description": "The media player renderer can be understood as the actual media player. It accepts media objects and applies actions like play, pause etc. to them.",
       "objectModel": {
           "id": {
@@ -295,5 +293,5 @@
         }
       }
     }
-  ]
+  }
 }
