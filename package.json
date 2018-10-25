@@ -1,0 +1,38 @@
+{
+  "name": "rsi.schema",
+  "version": "2.0.1-pre",
+  "description": "In order to have properly structured schemas, we need a validation scheme that can work with any JSON validator.",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/ajv": "^1.0.0",
+    "@types/node": "^10.11.3",
+    "ajv": "^6.5.4",
+    "hjson": "^3.1.1",
+    "typescript": "^3.1.1"
+  },
+  "scripts": {
+    "build:schema": "hjson -j src/\\$rsi.schema.hjson > ./dist/\\$rsi.schema.json",
+    "build:validator": "tsc",
+    "validate": "node ./dist/cli.js",
+    "validate:media": "npm run validate -- media"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://wzr1337@github.com/wzr1337/rsi.schema.git"
+  },
+  "keywords": [
+    "rsi",
+    "schema",
+    "validation"
+  ],
+  "author": "Dr. Patrick Bartsch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wzr1337/rsi.schema/issues"
+  },
+  "homepage": "https://github.com/wzr1337/rsi.schema#readme"
+}
