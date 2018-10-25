@@ -1,0 +1,299 @@
+{
+  "name": "rsi.service.media",
+  "description" : "",
+  "$schema": "https://github.com/wzr1337/rsi.schema/blob/2.0.0/dist/$rsi.schema.json",
+  "resources" : [
+    {
+      "name": "collections",
+      "description": "The media collections can also be understood as media queues of the renderer. Media collections can only contain playable media like tracks, videos or pictures.",
+      "objectModel": {
+        "id": {
+          "description": "collection id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "description": "collection name",
+          "type": "string"
+        },
+        "uri": {
+          "description": "object uri",
+          "type": "string",
+          "format": "uri"
+        },
+        "items": {
+          "description": "media collection items",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "oneOf": [
+            {
+              "#ref": "medialibrary.videosObject"
+            },
+            {
+              "#ref": "medialibrary.picturesObject"
+            },
+            {
+              "#ref": "medialibrary.tracksObject"
+            }
+            ]
+          }
+        }
+      },
+      "endpoints": {
+        "resource": {
+          "post": {
+            "description": "media can be any media object. All `encapsulating` media objects like album, playlist etc. will be flattend to root level of mediacollection. E.g. if a playlist contains track A and B, the tracks A and B will be added to the mediacollection. Changing an existing mediaCollectionObject would mean a modification of its `items` property content (e.g. adding or removing items from an existing collection)",
+            "parameters": {
+              "properties": {
+                "items": {
+                  "isRequired": true,
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            },
+            "scopesNeeded": [
+              "MEDIA_WRITE"
+            ]
+          },
+          "get": {
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_READ"
+            ]
+          }
+        },
+        "element": {
+          "post": {
+            "description": "Media can be any media object. All 'encapsulating' media objects like album, playlist, source etc. will be flattend to root level of mediacollection. E.g. if a playlist contains track A and B, the tracks A and B will be added to the mediacollection.",
+            "parameters": {
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            },
+            "scopesNeeded": [
+              "MEDIA_WRITE"
+            ]
+          },
+          "get": {
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_READ"
+            ]
+          },
+          "delete": {
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_WRITE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "renderers",
+      "description": "The media player renderer can be understood as the actual media player. It accepts media objects and applies actions like play, pause etc. to them.",
+      "objectModel": {
+          "id": {
+            "description": "renderer id",
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "description": "renderer name",
+            "type": "string"
+          },
+          "uri": {
+            "description": "object uri",
+            "type": "string",
+            "format": "uri"
+          },
+          "media": {
+            "description": "current media collection",
+            "type": "object",
+            "oneOf": [
+            {
+              "#ref": "media.collectionsObject"
+            }
+            ]
+          },
+          "mediaindex": {
+            "description": "DEPRECATED: index of actual media object if media is a collection (starting index is 0)",
+            "type": "integer",
+            "minimum": 0
+          },
+          "currentMediaItem": {
+            "description": "the media item currently being renderered.",
+            "type": "object",
+            "oneOf": [
+            {
+              "#ref": "medialibrary.videosObject"
+            },
+            {
+              "#ref": "medialibrary.sourcesObject"
+            },
+            {
+              "#ref": "medialibrary.picturesObject"
+            },
+            {
+              "#ref": "medialibrary.tracksObject"
+            }
+            ]
+          },
+          "type": {
+            "description": "type of medium",
+            "type": "string",
+            "enum": [
+            "track",
+            "video",
+            "image"
+            ]
+          },
+          "offset": {
+            "description": "current offset",
+            "type": "integer",
+            "minimum": 0,
+            "unit": "ms"
+          },
+          "state": {
+            "description": "media renderers playback state",
+            "type": "string",
+            "enum": [
+            "idle",
+            "play",
+            "pause",
+            "stop",
+            "ff",
+            "fr"
+            ]
+          },
+          "repeat": {
+            "description": "repeat mode",
+            "type": "string",
+            "enum": [
+            "off",
+            "repeatall",
+            "repeatone"
+            ]
+          },
+          "shuffle": {
+            "description": "shuffle mode",
+            "type": "string",
+            "enum": [
+            "on",
+            "off"
+            ]
+          },
+          "scan": {
+            "description": "shuffle mode",
+            "type": "string",
+            "enum": [
+            "off",
+            "up",
+            "down"
+            ]
+          }
+      },
+      "endpoints": {
+        "resource": {
+          "get": {
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_READ"
+            ]
+          },
+          "subscribe": {
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_READ"
+            ]
+          }
+        },
+        "element": {
+          "post": {
+            "parameters": {
+              "properties": {
+                "media": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "mediaindex": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "currentMediaItem": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "offset": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "unit": "ms"
+                },
+                "state": {
+                  "type": "string",
+                  "enum": [
+                  "idle",
+                  "play",
+                  "pause",
+                  "stop",
+                  "ff",
+                  "fr"
+                  ]
+                },
+                "repeat": {
+                  "type": "string",
+                  "enum": [
+                  "off",
+                  "repeatall",
+                  "repeatone"
+                  ]
+                },
+                "shuffle": {
+                  "type": "string",
+                  "enum": [
+                  "on",
+                  "off"
+                  ]
+                },
+                "scan": {
+                  "type": "string",
+                  "enum": [
+                  "off",
+                  "up",
+                  "down"
+                  ]
+                }
+              }
+            },
+            "scopesNeeded": [
+              "MEDIA_WRITE"
+            ]
+          },
+          "get": {
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_READ"
+            ]
+          },
+          "subscribe": {
+            "parameters": {},
+            "scopesNeeded": [
+              "MEDIA_READ"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
