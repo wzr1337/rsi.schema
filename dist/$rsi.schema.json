@@ -12,7 +12,10 @@
           "pattern": "^(viwi|rsi)\\.service\\.[a-zA-Z0-9]+$"
         },
         "resources": {
-          "$ref": "#/definitions/resourcesDefinition"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/resourcesObjectDefinition"
+          }
         },
         "types": {
           "$ref": "#/definitions/typesDefinition"
@@ -31,20 +34,27 @@
       ],
       "additionalProperties": false
     },
-    "resourcesDefinition": {
+    "resourcesObjectDefinition": {
       "type": "object",
       "properties": {
+        "name": {
+          "type": "string"
+        },
         "description": {
           "type": "string"
         },
         "objectModel": {
           "$ref": "#/definitions/objectModelDefinition"
+        },
+        "endpoints": {
+          "$ref": "#/definitions/endpointsDefinition"
         }
       },
       "required": [
-        "description"
+        "description",
+        "name"
       ],
-      "additionalProperties": true
+      "additionalProperties": false
     },
     "typesDefinition": {
       "type": "object",
@@ -94,7 +104,12 @@
           ]
         },
         "name": {
-          "type": "string"
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string"
+            }
+          }
         },
         "uri": {
           "type": "object",
@@ -136,7 +151,7 @@
       "properties": {
         "#ref": {
           "type": "string",
-          "pattern": "^([a-zA-Z]+\\.[a-zA-Z]+\\.[a-zA-Z]+Object|[a-zA-Z]+\\.[a-zA-Z]+Type)$"
+          "pattern": "^([a-zA-Z]+\\.[a-zA-Z]+Object|[a-zA-Z]+\\.[a-zA-Z]+Type)$"
         }
       },
       "additionalProperties": false,
@@ -219,6 +234,9 @@
         "description",
         "type"
       ]
+    },
+    "endpointsDefinition": {
+      "type": "object"
     }
   }
 }

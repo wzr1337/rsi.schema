@@ -10,10 +10,13 @@
       "properties": {
         "name": {
           "type": "string",
-          "pattern": "^(viwi|rsi)\\.service\\.[a-zA-Z0-9]+$"
+          "pattern": "^(viwi|rsi)\\.service\\.[a-z0-9]+$"
         },
         "resources": {
-          "$ref": "#/definitions/resourcesDefinition"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/resourcesObjectDefinition"
+          }
         },
         "types": {
           "$ref": "#/definitions/typesDefinition"
@@ -28,18 +31,24 @@
       "required": ["description", "name", "$schema"],
       "additionalProperties": false
     },
-    "resourcesDefinition": {
+    "resourcesObjectDefinition": {
       "type": "object",
       "properties": {
+        "name": {
+          "type": "string"
+        }
         "description": {
           "type": "string"
         },
         "objectModel": {
           "$ref": "#/definitions/objectModelDefinition"
         }
+        "endpoints" : {
+          "$ref": "#/definitions/endpointsDefinition"
+        }
       },
-      "required": ["description"],
-      "additionalProperties": true
+      "required": ["description", "name"],
+      "additionalProperties": false
     },
     "typesDefinition": {
       "type": "object",
@@ -76,7 +85,12 @@
           "required": ["description", "type", "format"]
         },
         "name": {
-          "type": "string"
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string"
+            }
+          }
         },
         "uri": {
           "type": "object",
@@ -110,7 +124,7 @@
       "properties": {
         "#ref": {
           "type": "string",
-          "pattern": "^([a-zA-Z]+\\.[a-zA-Z]+\\.[a-zA-Z]+Object|[a-zA-Z]+\\.[a-zA-Z]+Type)$"
+          "pattern": "^([a-zA-Z]+\\.[a-zA-Z]+Object|[a-zA-Z]+\\.[a-zA-Z]+Type)$"
         }
       },
       "additionalProperties": false,
@@ -159,19 +173,22 @@
               "type" : "string",
               "enum": ["string", "number", "integer", "boolean", "array", "object"]
             },
-        "oneOf": {
-        "type": "array",
-        "minItems": 1,
-        "items": {
-          "$ref": "#/definitions/objectModelReference"
-          }
-        }
+            "oneOf": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/objectModelReference"
+                }
+            }
           },
           "required" : ["type"]
         }
       },
       "additionalProperties": false,
       "required": ["description", "type"]
+    },
+    endpointsDefinition : {
+      "type": "object"
     }
   }
 }

@@ -1,73 +1,46 @@
 {
   "name": "rsi.service.media",
-  "description" : "",
+  "description" : "the media service definition",
   "$schema": "https://github.com/wzr1337/rsi.schema/blob/2.0.0/dist/$rsi.schema.json",
-  "resources" : [
-    {
-      "name": "collections",
+  "resources" : {
+    "collections": {
       "description": "The media collections can also be understood as media queues of the renderer. Media collections can only contain playable media like tracks, videos or pictures.",
       "objectModel": {
-        "id": {
-          "description": "collection id",
-          "type": "string",
-          "format": "uuid"
-        },
-        "name": {
-          "description": "collection name",
-          "type": "string"
-        },
-        "uri": {
-          "description": "object uri",
-          "type": "string",
-          "format": "uri"
-        },
-        "items": {
-          "description": "media collection items",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "oneOf": [
-            {
-              "#ref": "medialibrary.videosObject"
-            },
-            {
-              "#ref": "medialibrary.picturesObject"
-            },
-            {
-              "#ref": "medialibrary.tracksObject"
-            }
-            ]
-          }
-        }
-      },
-      "endpoints": {
-        "resource": {
-          "post": {
-            "description": "media can be any media object. All `encapsulating` media objects like album, playlist etc. will be flattend to root level of mediacollection. E.g. if a playlist contains track A and B, the tracks A and B will be added to the mediacollection. Changing an existing mediaCollectionObject would mean a modification of its `items` property content (e.g. adding or removing items from an existing collection)",
-            "parameters": {
-              "properties": {
-                "items": {
-                  "isRequired": true,
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "uri"
-                  }
-                }
-              }
-            },
-            "scopesNeeded": [
-              "MEDIA_WRITE"
-            ]
+        "attributes": {
+          "id": {
+            "description": "collection id",
+            "type": "string",
+            "format": "uuid"
           },
-          "get": {
-            "parameters": {},
-            "scopesNeeded": [
-              "MEDIA_READ"
-            ]
+          "name": {
+            "description": "collection name",
+            "type": "string"
+          },
+          "uri": {
+            "description": "object uri",
+            "type": "string",
+            "format": "uri"
+          },
+          "items": {
+            "description": "media collection items",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "oneOf": [
+              {
+                "#ref": "medialibrary.videosObject"
+              },
+              {
+                "#ref": "medialibrary.picturesObject"
+              },
+              {
+                "#ref": "medialibrary.tracksObject"
+              }
+              ]
+            }
           }
         },
-        "element": {
+        "accessMethods": {
           "post": {
             "description": "Media can be any media object. All 'encapsulating' media objects like album, playlist, source etc. will be flattend to root level of mediacollection. E.g. if a playlist contains track A and B, the tracks A and B will be added to the mediacollection.",
             "parameters": {
@@ -81,29 +54,55 @@
                 }
               }
             },
-            "scopesNeeded": [
-              "MEDIA_WRITE"
+            "usesPermissions": [
+              "mediaWrite"
             ]
           },
           "get": {
             "parameters": {},
-            "scopesNeeded": [
-              "MEDIA_READ"
+            "usesPermissions": [
+              "mediaRead"
             ]
           },
           "delete": {
             "parameters": {},
-            "scopesNeeded": [
-              "MEDIA_WRITE"
+            "usesPermissions": [
+              "mediaWrite"
             ]
           }
         }
+      },
+      "accessMethods": {
+        "post": {
+          "description": "media can be any media object. All `encapsulating` media objects like album, playlist etc. will be flattend to root level of mediacollection. E.g. if a playlist contains track A and B, the tracks A and B will be added to the mediacollection. Changing an existing mediaCollectionObject would mean a modification of its `items` property content (e.g. adding or removing items from an existing collection)",
+          "parameters": {
+            "properties": {
+              "items": {
+                "isRequired": true,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          },
+          "usesPermissions": [
+            "mediaWrite"
+          ]
+        },
+        "get": {
+          "parameters": {},
+          "usesPermissions": [
+            "mediaRead"
+          ]
+        }
       }
     },
-    {
-      "name": "renderers",
+    "renderers": {
       "description": "The media player renderer can be understood as the actual media player. It accepts media objects and applies actions like play, pause etc. to them.",
       "objectModel": {
+        "attributes": {
           "id": {
             "description": "renderer id",
             "type": "string",
@@ -203,23 +202,8 @@
             "down"
             ]
           }
-      },
-      "endpoints": {
-        "resource": {
-          "get": {
-            "parameters": {},
-            "scopesNeeded": [
-              "MEDIA_READ"
-            ]
-          },
-          "subscribe": {
-            "parameters": {},
-            "scopesNeeded": [
-              "MEDIA_READ"
-            ]
-          }
         },
-        "element": {
+        "accessMethods": {
           "post": {
             "parameters": {
               "properties": {
@@ -276,24 +260,38 @@
                 }
               }
             },
-            "scopesNeeded": [
-              "MEDIA_WRITE"
+            "usesPermissions": [
+              "mediaWrite"
             ]
           },
           "get": {
             "parameters": {},
-            "scopesNeeded": [
-              "MEDIA_READ"
+            "usesPermissions": [
+              "mediaRead"
             ]
           },
           "subscribe": {
             "parameters": {},
-            "scopesNeeded": [
-              "MEDIA_READ"
+            "usesPermissions": [
+              "mediaRead"
             ]
           }
         }
+      },
+      "accessMethods": {
+        "get": {
+          "parameters": {},
+          "usesPermissions": [
+            "mediaRead"
+          ]
+        },
+        "subscribe": {
+          "parameters": {},
+          "usesPermissions": [
+            "mediaRead"
+          ]
+        }
       }
     }
-  ]
+  }
 }
