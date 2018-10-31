@@ -18,7 +18,7 @@
     "build:schema": "hjson -j src/\\$rsi.schema.hjson > ./dist/\\$rsi.schema.json",
     "build:validator": "tsc",
     "validate": "node ./dist/cli.js",
-    "validate:media" : "validate -- media"
+    "validate:media": "npm run validate -- media"
   },
   "repository": {
     "type": "git",
