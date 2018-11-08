@@ -2,6 +2,34 @@
 
 The JSON schema is a formal description of services defined for the RSI (formerly viwi) framework [https://www.w3.org/Submission/viwi-protocol/](https://www.w3.org/Submission/viwi-protocol/)
 
+## Providing schema definiztions
+
+In order to make definitions availabe to others and let them by easily be used in other projects, maintaining an npm package is recommended.
+
+### The package structure
+
+```bash
+rsi.service.<servicename> $ tree -a
+.
+├── .gitattributes
+├── .gitignore
+├── README.md
+├── doc
+│   ├── ...
+├── package.json
+└── src
+    └── schema.json
+```
+
+contents as follows:
+
+* the actual service definition in  src/schema.json
+* a package.json file holding meta data and dependencies
+* a doc folder for detaileld documentation (e.g. workflow diagrams etc.)
+* a general README.md
+
+## JSON structure of a service definition
+
 The following JSON structure (commented) describes the different aspects (keys) of the JSON schema
 
 The `<>` notation us understood as a place holder. 
