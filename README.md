@@ -4,6 +4,10 @@ In order to have properly structured schemas, we need a validation scheme that c
 
 Please refer to <https://github.com/w3c/automotive-bg/tree/gh-pages/rsi> if you want to know about RSI.
 
+## The schema definition and specification
+
+The actual schema layout is described in [schema.spec.md](doc/schema.spec.md).
+
 ## Rewrite & Validation
 
 The schema files publish on W3Cs github repo are redundant in data they hold, not clear enough on meaning, nor are the catering for authorization scopes. The aim of this repository is to collaboratively define a new schema version and to provide a validation scheme (JSON) to validate any new schema.
