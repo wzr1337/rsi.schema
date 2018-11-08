@@ -123,15 +123,10 @@ The `<>` notation us understood as a place holder.
           },
           "post": { // defines the POST method to be performable on /<service>/<resource>/<element> level
             "description": "Lorem Ipsum", // a te
-            "parameters": {
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "uri"
-                  }
-                }
+            "parameters": { // holds all all the attributes being able to be modified via POST
+              "<stringAttribute>": { // makes the <stringAttribute> available for modification
+                "isRequired": true, // marks the attribute to be required on each request (optional)
+                "type": "string"
               }
             },
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
@@ -154,17 +149,11 @@ The `<>` notation us understood as a place holder.
       },
       "accessMethods": {
         "post": {
-          "description": "media can be any media object. All `encapsulating` media objects like album, playlist etc. will be flattend to root level of mediacollection. E.g. if a playlist contains track A and B, the tracks A and B will be added to the mediacollection. Changing an existing mediaCollectionObject would mean a modification of its `items` property content (e.g. adding or removing items from an existing collection)",
-          "parameters": {
-            "properties": {
-              "items": {
-                "isRequired": true,
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "format": "uri"
-                }
-              }
+          "description": "Lorem Ipsum amet sit",
+          "parameters": { // holds all all the attributes being able to be given when creating new elements via POST
+            "<stringAttribute>": { // makes the <stringAttribute> available for creation
+              "isRequired": true, // marks the attribute to be required on each request (optional)
+              "type": "string"
             }
           },
           "usesPermissions": [
