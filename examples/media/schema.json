@@ -44,13 +44,11 @@
           "post": {
             "description": "Media can be any media object. All 'encapsulating' media objects like album, playlist, source etc. will be flattend to root level of mediacollection. E.g. if a playlist contains track A and B, the tracks A and B will be added to the mediacollection.",
             "parameters": {
-              "properties": {
+              "items": {
+                "type": "array",
                 "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "uri"
-                  }
+                  "type": "string",
+                  "format": "uri"
                 }
               }
             },
@@ -76,14 +74,12 @@
         "post": {
           "description": "media can be any media object. All `encapsulating` media objects like album, playlist etc. will be flattend to root level of mediacollection. E.g. if a playlist contains track A and B, the tracks A and B will be added to the mediacollection. Changing an existing mediaCollectionObject would mean a modification of its `items` property content (e.g. adding or removing items from an existing collection)",
           "parameters": {
-            "properties": {
+            "items": {
+              "isRequired": true,
+              "type": "array",
               "items": {
-                "isRequired": true,
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "format": "uri"
-                }
+                "type": "string",
+                "format": "uri"
               }
             }
           },
@@ -206,58 +202,56 @@
         "accessMethods": {
           "post": {
             "parameters": {
-              "properties": {
-                "media": {
-                  "type": "string",
-                  "format": "uri"
-                },
-                "mediaindex": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "currentMediaItem": {
-                  "type": "string",
-                  "format": "uri"
-                },
-                "offset": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "unit": "ms"
-                },
-                "state": {
-                  "type": "string",
-                  "enum": [
-                  "idle",
-                  "play",
-                  "pause",
-                  "stop",
-                  "ff",
-                  "fr"
-                  ]
-                },
-                "repeat": {
-                  "type": "string",
-                  "enum": [
-                  "off",
-                  "repeatall",
-                  "repeatone"
-                  ]
-                },
-                "shuffle": {
-                  "type": "string",
-                  "enum": [
-                  "on",
-                  "off"
-                  ]
-                },
-                "scan": {
-                  "type": "string",
-                  "enum": [
-                  "off",
-                  "up",
-                  "down"
-                  ]
-                }
+              "media": {
+                "type": "string",
+                "format": "uri"
+              },
+              "mediaindex": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "currentMediaItem": {
+                "type": "string",
+                "format": "uri"
+              },
+              "offset": {
+                "type": "integer",
+                "minimum": 0,
+                "unit": "ms"
+              },
+              "state": {
+                "type": "string",
+                "enum": [
+                "idle",
+                "play",
+                "pause",
+                "stop",
+                "ff",
+                "fr"
+                ]
+              },
+              "repeat": {
+                "type": "string",
+                "enum": [
+                "off",
+                "repeatall",
+                "repeatone"
+                ]
+              },
+              "shuffle": {
+                "type": "string",
+                "enum": [
+                "on",
+                "off"
+                ]
+              },
+              "scan": {
+                "type": "string",
+                "enum": [
+                "off",
+                "up",
+                "down"
+                ]
               }
             },
             "usesPermissions": [
