@@ -33,7 +33,10 @@ The `<>` notation us understood as a place holder.
           "<stringAttribute>": { // defines and option attribute
             "description": "object uri", // description is a mandatory field of any attribute definition
             "type": "string", // this attribute is of type string
-            "format": "<format>" // the string value of the attribute/property will be in the <format> format (optional)
+            "format": "<format>" // the string value of the attribute/property will be in the <format> - predefined or regex - format (optional)
+            "enum": [ // limits the number of valid values (optional)
+              ...
+            ]
           },
           "<integerAttribute>": { // defines and option attribute
             "description": "an integer number", // description is a mandatory field of any attribute definition
