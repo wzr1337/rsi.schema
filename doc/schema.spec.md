@@ -114,14 +114,14 @@ The `<>` notation us understood as a place holder.
           },
           ... // more attribute definitions go here
         },
-        "accessMethods": { // describes the access methods on <service>/<resaource>/<element> level, i.e the operations you can perform on the element defined in th `objectModel` property
-          "get": { // defines the GET method to be performable on <service>/<resaource>/<element> level
+        "accessMethods": { // describes the access methods on /<service>/<resource>/<element> level, i.e the operations you can perform on the element defined in th `objectModel` property
+          "get": { // defines the GET method to be performable on /<service>/<resource>/<element> level
             "parameters": {},
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
               "<scope>Read" // A `Read` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaRead
             ]
           },
-          "post": { // defines the POST method to be performable on <service>/<resaource>/<element> level
+          "post": { // defines the POST method to be performable on /<service>/<resource>/<element> level
             "description": "Lorem Ipsum", // a te
             "parameters": {
               "properties": {
@@ -142,6 +142,12 @@ The `<>` notation us understood as a place holder.
             "parameters": {},
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
               "<scope>Write" // A `Write` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaWrite
+            ]
+          },
+          "subscribe": { // defines the subscribe method to be performable on /<service>/<resource>/<element> level
+            "parameters": {},
+            "usesPermissions": [
+              "<scope>Read" // A `Read` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaRead
             ]
           }
         }
@@ -169,6 +175,12 @@ The `<>` notation us understood as a place holder.
           "parameters": {},
           "usesPermissions": [
             "mediaRead"
+          ]
+        },
+        "subscribe": { // defines the subscribe method to be performable on /<service>/<resource>/ level
+          "parameters": {},
+          "usesPermissions": [
+            "<scope>Read" // A `Read` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaRead
           ]
         }
       }
