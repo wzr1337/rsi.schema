@@ -43,13 +43,15 @@ The `<>` notation us understood as a place holder.
             "type": "integer", // this attribute is of type integer
             "minimum": 0, // specifies the minumum value (optional)
             "maximum": 0 // specifies the maximum value (optional)
+            "unit": "<unit>" // the <unit> teh value is measured in (optional)
           },
           "<numberAttribute>": { // defines and option attribute
             "description": "a number", // description is a mandatory field of any attribute definition
             "type": "number", // this attribute is of type number
             "minimum": 0, // specifies the minumum value (optional)
             "maximum": 0, // specifies the maximum value (optional)
-            "resolution": 0.01 // specifies numbers resolution - value 1 would be mean its an integer (optional)
+            "resolution": 0.01, // specifies numbers resolution - value 1 would be mean its an integer (optional)
+            "unit": "<unit>" // the <unit> teh value is measured in (optional)
           },
           "<booleanAttribute>": { // defines and option attribute
             "description": "a bool", // description is a mandatory field of any attribute definition
