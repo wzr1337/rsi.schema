@@ -66,19 +66,12 @@ The `<>` notation us understood as a place holder.
               ...
             ]
           },
-          "<integerAttribute>": { // defines and option attribute
-            "description": "an integer number", // description is a mandatory field of any attribute definition
-            "type": "integer", // this attribute is of type integer
-            "minimum": 0, // specifies the minumum value (optional)
-            "maximum": 0 // specifies the maximum value (optional)
-            "unit": "<unit>" // the <unit> teh value is measured in (optional)
-          },
           "<numberAttribute>": { // defines and option attribute
             "description": "a number", // description is a mandatory field of any attribute definition
             "type": "number", // this attribute is of type number
+            "resolution": 0.01, // specifies numbers resolution - value 1 dexfribes an integer
             "minimum": 0, // specifies the minumum value (optional)
             "maximum": 0, // specifies the maximum value (optional)
-            "resolution": 0.01, // specifies numbers resolution - value 1 would be mean its an integer (optional)
             "unit": "<unit>" // the <unit> teh value is measured in (optional)
           },
           "<booleanAttribute>": { // defines and option attribute
@@ -110,13 +103,6 @@ The `<>` notation us understood as a place holder.
                   "#ref": "medialibrary.videosType" // a nested object always expressed as <serviceName>.>resourceName>Type
                 }
               ]
-            }
-          },
-          "<arrayOfIntegers>": {
-            "description": "media collection items", // description is a mandatory field of any attribute definition
-            "type": "array", // this attribute is of type array
-            "items": { // all the items in the array comply to the definition below
-              ...
             }
           },
           "<arrayOfNumbers>": {
