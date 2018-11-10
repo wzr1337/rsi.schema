@@ -69,7 +69,7 @@ The `<>` notation us understood as a place holder.
           "<numberAttribute>": { // defines and option attribute
             "description": "a number", // description is a mandatory field of any attribute definition
             "type": "number", // this attribute is of type number
-            "resolution": 0.01, // specifies numbers resolution - value 1 dexfribes an integer
+            "resolution": 0.01, // specifies numbers resolution - value 1 describes an integer
             "minimum": 0, // specifies the minumum value (optional)
             "maximum": 0, // specifies the maximum value (optional)
             "unit": "<unit>" // the <unit> teh value is measured in (optional)
