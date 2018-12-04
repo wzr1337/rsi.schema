@@ -10,7 +10,7 @@
       "properties": {
         "name": {
           "type": "string",
-          "pattern": "^(viwi|rsi)\\.service\\.[a-z0-9]+$"
+          "pattern": "^rsi\\.service\\.[a-z0-9]+$"
         },
         "resources": {
           "type": "array",
