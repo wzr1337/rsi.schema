@@ -43,9 +43,6 @@
         "objectModel": {
           "$ref": "#/definitions/objectModelDefinition"
         },
-        "endpoints" : {
-          "$ref": "#/definitions/endpointsDefinition"
-        },
         "accessMethods": {
           "$ref": "#/definitions/accessMethodsDefinition"
         }
@@ -251,12 +248,6 @@
         },
         "additionalProperties": false
       }
-    },
-
-    "endpointsDefinition" : {
-      "type": "object"
-      /// @@TODO: become more specific
-      /// @@TODO: use definitions/parameterDefinition/
     }
   }
 }
