@@ -46,7 +46,7 @@
           "$ref": "#/definitions/objectModelDefinition"
         },
         "accessMethods": {
-          "$ref": "#/definitions/accessMethodsDefinition"
+          "$ref": "#/definitions/resourceAccessMethodsDefinition"
         }
       },
       "required": [
@@ -87,11 +87,15 @@
       },
       "additionalProperties": false
     },
-    "accessMethodsDefinition": {
+    "accessMethodDefinition": {
       "type": "object",
-      "properies": {
+      "properties": {
         "usesPermissions": {
-          "type": "object"
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-zA-Z0-9]+Read|Write$"
+          }
         },
         "description": {
           "type": "string"
@@ -99,7 +103,8 @@
         "parameters": {
           "$ref": "#/definitions/parametersDefinition"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "objectModelDefinition": {
       "type": "object",
@@ -177,7 +182,7 @@
           ]
         },
         "accessMethods": {
-          "$ref": "#/definitions/accessMethodsDefinition"
+          "$ref": "#/definitions/elementAccessMethodsDefinition"
         }
       }
     },

@@ -44,7 +44,7 @@
           "$ref": "#/definitions/objectModelDefinition"
         },
         "accessMethods": {
-          "$ref": "#/definitions/accessMethodsDefinition"
+          "$ref": "#/definitions/resourceAccessMethodsDefinition"
         }
       },
       "required": ["description"],
@@ -66,7 +66,7 @@
     },
     
     "elementAccessMethodsDefinition" : {
-      "type": object
+      "type": "object"
       "patternProperties": {
         "^get|delete|post|put|subscribe$": {
           "$ref": "#/definitions/accessMethodDefinition"
@@ -76,7 +76,7 @@
     },
 
     "resourceAccessMethodsDefinition" : {
-      "type": object
+      "type": "object"
       "patternProperties": {
         "^get|post|subscribe$": {
           "$ref": "#/definitions/accessMethodDefinition"
@@ -85,12 +85,15 @@
       "additionalProperties": false
     },
 
-    "accessMethodsDefinition" : {
+    "accessMethodDefinition" : {
       "type": "object",
-      "properies" : {
+      "properties" : {
         "usesPermissions": {
-          "type": "object"
-          /// @@TODO become more specific
+          "type": "array"
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-zA-Z0-9]+Read|Write$" // uses lowerCamelCase and need a Write or Read at the end
+          }
         },
         "description" : {
           "type": "string"
@@ -98,7 +101,8 @@
         "parameters": {
           "$ref": "#/definitions/parametersDefinition"
         }
-      }
+      },
+      "additionalProperties": false
     }
 
     "objectModelDefinition": {
@@ -165,7 +169,7 @@
           "required" : ["id", "name", "uri"]
         },
         "accessMethods": {
-          "$ref": "#/definitions/accessMethodsDefinition"
+          "$ref": "#/definitions/elementAccessMethodsDefinition"
         }
       }
     },
