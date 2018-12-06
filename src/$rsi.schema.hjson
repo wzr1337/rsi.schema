@@ -194,26 +194,8 @@
         },
         "type": {
           "type": "string",
-          "enum": ["string", "number", "boolean", "array", "object"]
-        },
-        "format": {
-          "type": "string"
-        },
-        "enum" : {
-          "type": "array"
-        },
-        "minimum": {
-          "type": "number"
-        },
-        "maximum": {
-          "type": "number"
-        },
-        "resolution": {
-          "type": "number"
-        },
-        "unit": {
-          "type": "string"
-        },
+          "enum": ["array", "object"]
+        }
         "oneOf": {
           "type": "array",
           "minItems": 1,
@@ -226,14 +208,14 @@
           "properties" : {
             "type" : {
               "type" : "string",
-              "enum": ["string", "number", "boolean", "array", "object"]
+              "enum": ["string", "array", "object"]
             },
             "oneOf": {
               "type": "array",
               "minItems": 1,
               "items": {
                 "$ref": "#/definitions/objectModelReference"
-                }
+              }
             }
           },
           "required" : ["type"]
@@ -252,6 +234,72 @@
         },
         "additionalProperties": false
       }
+    },
+
+    "numberTypeDefintion": {
+      "type": "object",
+      "properties": {
+        "description": { // description is a mandatory field of any attribute definition
+          "type": "string"
+        }, 
+        "type": { // this attribute is of type number
+          "type": "string",
+          "pattern": "number"
+        }, 
+        "resolution": { // specifies numbers resolution - value 1 describes an integer
+          "type": "number"
+        }, 
+        "minimum": { // specifies the minumum value (optional)
+          "type": "number"
+        }, 
+        "maximum": { // specifies the maximum value (optional)
+          "type": "number"
+        }, 
+        "unit": { // the <unit> the value is measured in (optional)
+          "type": "string"
+        } 
+      },
+      "additionalProperties": false,
+      "required": ["description", "type", "resolution"]
+    },
+
+    "booleanTypeDefintion": {
+      "type": "object",
+      "properties": {
+        "description": { // description is a mandatory field of any attribute definition
+          "type": "string"
+        }, 
+        "type": { // this attribute is of type number
+          "type": "string",
+          "pattern": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["description", "type"]
+    },
+
+    "stringTypeDefintion": {
+      "type": "object",
+      "properties": {
+        "description": { // description is a mandatory field of any attribute definition
+          "type": "string"
+        }, 
+        "type": { // this attribute is of type number
+          "type": "string",
+          "pattern": "string"
+        },
+        "format": { // this attribute is of type number
+          "type": "string" // the string value of the attribute/property will be in the <format> - predefined or regex - format (optional)
+        },
+        "enum": {  // limits the number of valid values (optional)
+          "type": "array",
+          "items": {
+            "type" : "string" // might even be a javascript compliant regex pattern
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": ["description", "type"]
     }
   }
 }
