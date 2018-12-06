@@ -72,8 +72,37 @@
       ],
       "additionalProperties": true
     },
+    "elementAccessMethodsDefinition": {
+      "type": "object",
+      "patternProperties": {
+        "^get|delete|post|put|subscribe$": {
+          "$ref": "#/definitions/accessMethodDefinition"
+        }
+      },
+      "additionalProperties": false
+    },
+    "resourceAccessMethodsDefinition": {
+      "type": "object",
+      "patternProperties": {
+        "^get|post|subscribe$": {
+          "$ref": "#/definitions/accessMethodDefinition"
+        }
+      },
+      "additionalProperties": false
+    },
     "accessMethodsDefinition": {
-      "type": "object"
+      "type": "object",
+      "properies": {
+        "usesPermissions": {
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/definitions/parametersDefinition"
+        }
+      }
     },
     "objectModelDefinition": {
       "type": "object",
@@ -246,6 +275,15 @@
         "description",
         "type"
       ]
+    },
+    "parametersDefinition": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]+$": {
+          "type": "object"
+        },
+        "additionalProperties": false
+      }
     },
     "endpointsDefinition": {
       "type": "object"

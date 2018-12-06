@@ -68,9 +68,40 @@
       "additionalProperties": true
     },
     
-    "accessMethodsDefinition" : {
+    "elementAccessMethodsDefinition" : {
       "type": object
-      ///@@TODO tbd 
+      "patternProperties": {
+        "^get|delete|post|put|subscribe$": {
+          "$ref": "#/definitions/accessMethodDefinition"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "resourceAccessMethodsDefinition" : {
+      "type": object
+      "patternProperties": {
+        "^get|post|subscribe$": {
+          "$ref": "#/definitions/accessMethodDefinition"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "accessMethodsDefinition" : {
+      "type": "object",
+      "properies" : {
+        "usesPermissions": {
+          "type": "object"
+          /// @@TODO become more specific
+        },
+        "description" : {
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/definitions/parametersDefinition"
+        }
+      }
     }
 
     "objectModelDefinition": {
@@ -206,8 +237,22 @@
       "additionalProperties": false,
       "required": ["description", "type"]
     },
-    endpointsDefinition : {
+
+    "parametersDefinition": {
       "type": "object"
+      "patternProperties": {
+        "^[a-zA-Z0-9]+$": {
+          "type": "object",
+          /// @@TODO: become more specific
+        },
+        "additionalProperties": false
+      }
+    },
+
+    "endpointsDefinition" : {
+      "type": "object"
+      /// @@TODO: become more specific
+      /// @@TODO: use definitions/parameterDefinition/
     }
   }
 }
