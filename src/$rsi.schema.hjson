@@ -119,7 +119,7 @@
                 },
                 "type": {
                   "type": "string",
-                  "enum": ["string", "number", "boolean", "array", "object"]
+                  "pattern": "string"
                 },
                 "format": {
                   "type": "string",
@@ -133,6 +133,10 @@
               "properties": {
                 "description": {
                   "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "pattern": "string"
                 }
               }
             },
