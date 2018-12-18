@@ -133,7 +133,13 @@ The `<>` notation us understood as a place holder.
             "parameters": {},
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
               "<scope>Read" // A `Read` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaRead
-            ]
+            ],
+            "additonalHeaders": { // additional headers which migh need to be sent with the request
+              "<someHeaderName>": {
+                "isRequired": true|false, // marks it as required with every request
+                "type": "string" // its type
+              }
+            }
           },
           "post": { // defines the POST method to be performable on /<service>/<resource>/<element> level to mdoify an element
             "description": "Lorem Ipsum", // a te
@@ -145,13 +151,25 @@ The `<>` notation us understood as a place holder.
             },
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
               "<scope>Write" // A `Write` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaWrite
-            ]
+            ],
+            "additonalHeaders": { // additional headers which migh need to be sent with the request
+              "<someHeaderName>": {
+                "isRequired": true|false, // marks it as required with every request
+                "type": "string" // its type
+              }
+            }
           },
           "delete": { // defines the DELETE method to be performable on /<service>/<resource>/<element> level to delete an element
             "parameters": {},
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
               "<scope>Write" // A `Write` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaWrite
-            ]
+            ],
+            "additonalHeaders": { // additional headers which migh need to be sent with the request
+              "<someHeaderName>": {
+                "isRequired": true|false, // marks it as required with every request
+                "type": "string" // its type
+              }
+            }
           },
           "subscribe": { // defines the subscribe method to be performable on /<service>/<resource>/<element> level
             "parameters": {},
@@ -172,7 +190,13 @@ The `<>` notation us understood as a place holder.
           },
           "usesPermissions": [
             "<scope>Write" // A `Write` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaWrite
-          ]
+          ],
+          "additonalHeaders": { // additional headers which migh need to be sent with the request
+            "<someHeaderName>": {
+              "isRequired": true|false, // marks it as required with every request
+              "type": "string" // its type
+            }
+          }
         },
         "put": { // defines the PUT method to be performable on /<service>/<resource>/ level, i.e create new elements letting the client decide about the id/name of the element (rarely used)
           "description": "Lorem Ipsum amet sit",
@@ -184,7 +208,13 @@ The `<>` notation us understood as a place holder.
           },
           "usesPermissions": [
             "<scope>Write" // A `Write` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaWrite
-          ]
+          ],
+          "additonalHeaders": { // additional headers which migh need to be sent with the request
+            "<someHeaderName>": {
+              "isRequired": true|false, // marks it as required with every request
+              "type": "string" // its type
+            }
+          }
         },
         "get": {
           "parameters": {
@@ -195,7 +225,13 @@ The `<>` notation us understood as a place holder.
           },
           "usesPermissions": [
             "<scope>Read" // A `Read` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaRead
-          ]
+          ],
+          "additonalHeaders": { // additional headers which migh need to be sent with the request
+            "<someHeaderName>": {
+              "isRequired": true|false, // marks it as required with every request
+              "type": "string" // its type
+            }
+          }
         },
         "subscribe": { // defines the subscribe method to be performable on /<service>/<resource>/ level
           "parameters": {// holds all the attributes that can be used with the $sortBy parameter
