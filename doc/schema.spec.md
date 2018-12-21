@@ -134,8 +134,9 @@ The `<>` notation us understood as a place holder.
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
               "<scope>Read" // A `Read` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaRead
             ],
-            "additonalHeaders": { // additional headers which might need to be sent with the request (optional)
+            "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
               "<someHeaderName>": {
+                "description": "<this header is used for ...>" // a description of the headers purpose
                 "isRequired": true|false, // marks it as required with every request
                 "type": "string" // its type
               }
@@ -152,8 +153,9 @@ The `<>` notation us understood as a place holder.
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
               "<scope>Write" // A `Write` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaWrite
             ],
-            "additonalHeaders": { // additional headers which might need to be sent with the request (optional)
+            "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
               "<someHeaderName>": {
+                "description": "<this header is used for ...>" // a description of the headers purpose
                 "isRequired": true|false, // marks it as required with every request
                 "type": "string" // its type
               }
@@ -164,8 +166,9 @@ The `<>` notation us understood as a place holder.
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
               "<scope>Write" // A `Write` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaWrite
             ],
-            "additonalHeaders": { // additional headers which might need to be sent with the request (optional)
+            "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
               "<someHeaderName>": {
+                "description": "<this header is used for ...>" // a description of the headers purpose
                 "isRequired": true|false, // marks it as required with every request
                 "type": "string" // its type
               }
@@ -191,8 +194,9 @@ The `<>` notation us understood as a place holder.
           "usesPermissions": [
             "<scope>Write" // A `Write` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaWrite
           ],
-          "additonalHeaders": { // additional headers which might need to be sent with the request (optional)
+          "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
             "<someHeaderName>": {
+              "description": "<this header is used for ...>" // a description of the headers purpose
               "isRequired": true|false, // marks it as required with every request
               "type": "string" // its type
             }
@@ -209,8 +213,9 @@ The `<>` notation us understood as a place holder.
           "usesPermissions": [
             "<scope>Write" // A `Write` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaWrite
           ],
-          "additonalHeaders": { // additional headers which might need to be sent with the request (optional)
+          "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
             "<someHeaderName>": {
+              "description": "<this header is used for ...>" // a description of the headers purpose
               "isRequired": true|false, // marks it as required with every request
               "type": "string" // its type
             }
@@ -226,8 +231,9 @@ The `<>` notation us understood as a place holder.
           "usesPermissions": [
             "<scope>Read" // A `Read` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaRead
           ],
-          "additonalHeaders": { // additional headers which might need to be sent with the request (optional)
+          "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
             "<someHeaderName>": {
+              "description": "<this header is used for ...>" // a description of the headers purpose
               "isRequired": true|false, // marks it as required with every request
               "type": "string" // its type
             }
