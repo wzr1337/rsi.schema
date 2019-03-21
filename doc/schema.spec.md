@@ -2,7 +2,7 @@
 
 The JSON schema is a formal description of services defined for the RSI (formerly viwi) framework [https://www.w3.org/Submission/viwi-protocol/](https://www.w3.org/Submission/viwi-protocol/)
 
-## Providing schema definiztions
+## Providing schema definitions
 
 In order to make definitions availabe to others and let them by easily be used in other projects, maintaining an npm package is recommended.
 
