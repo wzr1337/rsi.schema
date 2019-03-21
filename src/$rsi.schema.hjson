@@ -13,9 +13,11 @@
           "pattern": "^(viwi|rsi)\\.service\\.[a-z0-9]+$"
         },
         "resources": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/resourcesObjectDefinition"
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": {
+              "$ref": "#/definitions/resourcesObjectDefinition"
+            }
           }
         },
         "types": {
@@ -31,12 +33,12 @@
       "required": ["description", "name", "$schema"],
       "additionalProperties": false
     },
+    "accessMethodsDefinition" : {
+      "type": "object"
+    },
     "resourcesObjectDefinition": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string"
-        }
         "description": {
           "type": "string"
         },
@@ -45,9 +47,12 @@
         }
         "endpoints" : {
           "$ref": "#/definitions/endpointsDefinition"
+        },
+        "accessMethods": {
+          "$ref": "#/definitions/accessMethodsDefinition"
         }
       },
-      "required": ["description", "name"],
+      "required": ["description", "objectModel"],
       "additionalProperties": false
     },
     "typesDefinition": {
@@ -64,60 +69,86 @@
       "additionalProperties": true
     },
     "objectModelDefinition": {
-      "type": "object",
-      "properties": {
-        "id": {
+      type: "object",
+      properties: {
+        attributes: {
           "type": "object",
           "properties": {
-            "description": {
-              "type": "string",
-              "minLength": 2
+            /*"id": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "minLength": 2
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["string", "number", "integer", "boolean", "array", "object"]
+                },
+                "format": {
+                  "type": "string",
+                  "pattern": "uuid"
+                }
+              },
+              "required": ["description", "type", "format"]
+            },*/
+            "id": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "minLength": 2
+                },
+                "type": {
+                  "type": "string",
+                  "pattern": "string"
+                },
+                "format": {
+                  "type": "string",
+                  "pattern": "uuid"
+                }
+              }
             },
-            "type": {
-              "type": "string",
-              "enum": ["string", "number", "integer", "boolean", "array", "object"]
+            "name": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "pattern": "string"
+                }
+              }
             },
-            "format": {
-              "type": "string",
-              "pattern": "uuid"
+            "uri": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "minLength": 2
+                },
+                "type": {
+                  "type": "string",
+                  "pattern": "string"
+                },
+                "format": {
+                  "type": "string",
+                  "pattern": "uri"
+                }
+              },
+              "required": ["description", "type", "format"]
             }
           },
-          "required": ["description", "type", "format"]
-        },
-        "name": {
-          "type": "object",
-          "properties": {
-            "description": {
-              "type": "string"
-            }
-          }
-        },
-        "uri": {
-          "type": "object",
-          "properties": {
-            "description": {
-              "type": "string",
-              "minLength": 2
-            },
-            "type": {
-              "type": "string",
-              "pattern": "string"
-            },
-            "format": {
-              "type": "string",
-              "pattern": "uri"
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": {
+              "$ref": "#/definitions/objectPropertyDefinition"
             }
           },
-          "required": ["description", "type", "format"]
+          "additionalProperties": false,
+          "required" : ["id", "name", "uri"]
         }
-      },
-      "patternProperties": {
-        "^[a-zA-Z0-9]+$": {
-          "$ref": "#/definitions/objectPropertyDefinition"
-        }
-      },
-      "additionalProperties": false,
-      "required" : ["id", "name", "uri"]
+      }
     },
     "objectModelReference": {
       "type": "object",
