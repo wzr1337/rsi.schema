@@ -83,10 +83,10 @@ The `<>` notation us understood as a place holder.
             "type": "object", // this attribute is of type object (refers to one or nests one)
             "oneOf": [ // a list of references to objects
               {
-                "#ref": "medialibrary.videosObject" // the reference to another object is always expressed as <serviceName>.>resourceName>Object
+                "#ref": "medialibrary.videosObject" // the reference to another object is always expressed as <serviceName>.<resourceName>Object
               },
               {
-                "#ref": "medialibrary.videosType" // a nested object always expressed as <serviceName>.>resourceName>Type
+                "#ref": "medialibrary.videosType" // a nested object always expressed as <serviceName>.<typeName>Type
               }
             ]
           },
@@ -97,10 +97,10 @@ The `<>` notation us understood as a place holder.
               "type": "object", // this attribute is of type object (refers to one or nests one)
               "oneOf": [ // a list of references to objects
                 {
-                  "#ref": "medialibrary.videosObject" // the reference to another object is always expressed as <serviceName>.>resourceName>Object
+                  "#ref": "medialibrary.videosObject" // the reference to another object is always expressed as <serviceName>.<resourceName>Object
                 },
                 {
-                  "#ref": "medialibrary.videosType" // a nested object always expressed as <serviceName>.>resourceName>Type
+                  "#ref": "medialibrary.videosType" // a nested object always expressed as <serviceName>.<typeName>Type
                 }
               ]
             }
@@ -251,7 +251,84 @@ The `<>` notation us understood as a place holder.
         }
       }
     },
-    ... // more resource definitions go here
+    ..., // more resource definitions go here
+
+    "types" : {
+      "<typeName>": { // the <typeName> of the type we are defining within the namespace of the service (<name>)
+        "description": "<this type is designed to be used for ...>" // a description of the types purpose
+        "attributes": { // mandatory property
+           "<stringAttribute>": { // defines and option attribute
+            "description": "object uri", // description is a mandatory field of any attribute definition
+            "type": "string", // this attribute is of type string
+            "format": "<format>" // the string value of the attribute/property will be in the <format> - predefined or regex - format (optional)
+            "enum": [ // limits the number of valid values (optional)
+              ...
+            ]
+          },
+          "<numberAttribute>": { // defines and option attribute
+            "description": "a number", // description is a mandatory field of any attribute definition
+            "type": "number", // this attribute is of type number
+            "resolution": 0.01, // specifies numbers resolution - value 1 describes an integer
+            "minimum": 0, // specifies the minumum value (optional)
+            "maximum": 0, // specifies the maximum value (optional)
+            "unit": "<unit>" // the <unit> teh value is measured in (optional)
+          },
+          "<booleanAttribute>": { // defines and option attribute
+            "description": "a bool", // description is a mandatory field of any attribute definition
+            "type": "boolean"
+          },
+          "<referenceAttribute>": { // defines and option attribute
+            "description": "a reference to another object", // description is a mandatory field of any attribute definition
+            "type": "object", // this attribute is of type object (refers to one or nests one)
+            "oneOf": [ // a list of references to objects
+              {
+                "#ref": "medialibrary.videosObject" // the reference to another object is always expressed as <serviceName>.<resourceName>Object
+              },
+              {
+                "#ref": "medialibrary.videosType" // a nested object always expressed as <serviceName>.<typeName>Type
+              }
+            ]
+          },
+          "<arrayOfReferences>": {
+            "description": "media collection items", // description is a mandatory field of any attribute definition
+            "type": "array", // this attribute is of type array
+            "items": { // all the items in the array comply to the definition below
+              "type": "object", // this attribute is of type object (refers to one or nests one)
+              "oneOf": [ // a list of references to objects
+                {
+                  "#ref": "medialibrary.videosObject" // the reference to another object is always expressed as <serviceName>.<resourceName>Object
+                },
+                {
+                  "#ref": "medialibrary.videosType" // a nested object always expressed as <serviceName>.<typeName>Type
+                }
+              ]
+            }
+          },
+          "<arrayOfNumbers>": {
+            "description": "media collection items", // description is a mandatory field of any attribute definition
+            "type": "array", // this attribute is of type array
+            "items": { // all the items in the array comply to the definition below
+              ...
+            }
+          },
+          "<arrayOfBooleans>": {
+            "description": "media collection items", // description is a mandatory field of any attribute definition
+            "type": "array", // this attribute is of type array
+            "items": { // all the items in the array comply to the definition below
+              ...
+            }
+          },
+          "<arrayOfStrings>": {
+            "description": "media collection items", // description is a mandatory field of any attribute definition
+            "type": "array", // this attribute is of type array
+            "items": { // all the items in the array comply to the definition below
+              ...
+            }
+          },
+          ..., // more attribute definitions go here
+        }
+      }
+    }
   }
 }
 
