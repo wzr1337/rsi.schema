@@ -72,7 +72,7 @@ The `<>` notation us understood as a place holder.
             "resolution": 0.01, // specifies numbers resolution - value 1 describes an integer
             "minimum": 0, // specifies the minumum value (optional)
             "maximum": 0, // specifies the maximum value (optional)
-            "unit": "<unit>" // the <unit> teh value is measured in (optional)
+            "unit": "<unit>" // the <unit> the value is measured in (optional)
           },
           "<booleanAttribute>": { // defines and option attribute
             "description": "a bool", // description is a mandatory field of any attribute definition
@@ -131,6 +131,12 @@ The `<>` notation us understood as a place holder.
         "accessMethods": { // describes the access methods on /<service>/<resource>/<element> level, i.e the operations you can perform on the element defined in th `objectModel` property
           "get": { // defines the GET method to be performable on /<service>/<resource>/<element> level
             "parameters": {},
+            "additionalHeaders": { // allows additional, non-standard headers specific to the request (optional)
+              "<header>": { // makes the <header> available for transport
+                "isRequired": true, // marks the attribute to be required on each request (optional)
+                "type": "string" // headers are always strings
+              }
+            },
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
               "<scope>Read" // A `Read` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaRead
             ],
@@ -143,7 +149,13 @@ The `<>` notation us understood as a place holder.
             }
           },
           "post": { // defines the POST method to be performable on /<service>/<resource>/<element> level to mdoify an element
-            "description": "Lorem Ipsum", // a te
+            "description": "Lorem Ipsum", // a description
+            "additionalHeaders": { // allows additional, non-standard headers specific to the request (optional)
+              "<header>": { // makes the <header> available for transport
+                "isRequired": true, // marks the attribute to be required on each request (optional)
+                "type": "string" // headers are always strings
+              }
+            },
             "parameters": { // holds all all the attributes being able to be modified via POST
               "<stringAttribute>": { // makes the <stringAttribute> available for modification
                 "isRequired": true, // marks the attribute to be required on each request (optional)
@@ -163,6 +175,12 @@ The `<>` notation us understood as a place holder.
           },
           "delete": { // defines the DELETE method to be performable on /<service>/<resource>/<element> level to delete an element
             "parameters": {},
+            "additionalHeaders": { // allows additional, non-standard headers specific to the request (optional)
+              "<header>": { // makes the <header> available for transport
+                "isRequired": true, // marks the attribute to be required on each request (optional)
+                "type": "string" // headers are always strings
+              }
+            },
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
               "<scope>Write" // A `Write` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaWrite
             ],
@@ -185,6 +203,12 @@ The `<>` notation us understood as a place holder.
       "accessMethods": {
         "post": { // defines the POST method to be performable on /<service>/<resource>/ level, i.e creat new elements (server side id)
           "description": "Lorem Ipsum amet sit",
+          "additionalHeaders": { // allows additional, non-standard headers specific to the request (optional)
+            "<header>": { // makes the <header> available for transport
+              "isRequired": true, // marks the attribute to be required on each request (optional)
+              "type": "string" // headers are always strings
+            }
+          },
           "parameters": { // holds all the attributes being able to be given when creating new elements via POST
             "<stringAttribute>": { // makes the <stringAttribute> available for creation
               "isRequired": true, // marks the attribute to be required on each request (optional)
@@ -204,6 +228,12 @@ The `<>` notation us understood as a place holder.
         },
         "put": { // defines the PUT method to be performable on /<service>/<resource>/ level, i.e create new elements letting the client decide about the id/name of the element (rarely used)
           "description": "Lorem Ipsum amet sit",
+          "additionalHeaders": { // allows additional, non-standard headers specific to the request (optional)
+            "<header>": { // makes the <header> available for transport
+              "isRequired": true, // marks the attribute to be required on each request (optional)
+              "type": "string" // headers are always strings
+            }
+          },
           "parameters": { // holds all the attributes being able to be given when creating new elements via PUT
             "<stringAttribute>": { // makes the <stringAttribute> available for creation
               "isRequired": true, // marks the attribute to be required on each request (optional)
@@ -226,6 +256,12 @@ The `<>` notation us understood as a place holder.
             // holds all the attributes that can be used with the $sortBy parameter
             "<stringAttribute>": { // makes the <stringAttribute> available for sorting
               "type": "string"
+            }
+          },
+          "additionalHeaders": { // allows additional, non-standard headers specific to the request (optional)
+            "<header>": { // makes the <header> available for transport
+              "isRequired": true, // marks the attribute to be required on each request (optional)
+              "type": "string" // headers are always strings
             }
           },
           "usesPermissions": [
