@@ -37,7 +37,65 @@
       "additionalProperties": false
     },
     "accessMethodsDefinition": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "get": {
+          "$ref": "#/definitions/accessMethodsDetailsDefinition"
+        },
+        "put": {
+          "$ref": "#/definitions/accessMethodsDetailsDefinition"
+        },
+        "post": {
+          "$ref": "#/definitions/accessMethodsDetailsDefinition"
+        },
+        "delete": {
+          "$ref": "#/definitions/accessMethodsDetailsDefinition"
+        },
+        "subscribe": {
+          "$ref": "#/definitions/accessMethodsDetailsDefinition"
+        },
+        "additionalProperties": false
+      }
+    },
+    "accessMethodsDetailsDefinition": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": "object"
+        },
+        "usesPermissions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^\\w+Read|Write$"
+          }
+        },
+        "additionalHeaders": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "isRequired": {
+                  "type": "boolean"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "required": [
+        "parameters",
+        "usesPermissions"
+      ]
     },
     "resourcesObjectDefinition": {
       "type": "object",
@@ -47,9 +105,6 @@
         },
         "objectModel": {
           "$ref": "#/definitions/objectModelDefinition"
-        },
-        "endpoints": {
-          "$ref": "#/definitions/endpointsDefinition"
         },
         "accessMethods": {
           "$ref": "#/definitions/accessMethodsDefinition"
@@ -63,18 +118,34 @@
     },
     "typesDefinition": {
       "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]+$": {
+          "$ref": "#/definitions/typeModelDefinition"
+        }
+      },
+      "additionalProperties": false
+    },
+    "typeModelDefinition": {
+      "type": "object",
       "properties": {
-        "name": {
-          "type": "string"
-        },
         "description": {
           "type": "string"
+        },
+        "attributes": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": {
+              "$ref": "#/definitions/objectPropertyDefinition"
+            }
+          },
+          "additionalProperties": false
         }
       },
       "required": [
-        "description"
+        "description",
+        "attributes"
       ],
-      "additionalProperties": true
+      "additionalProperties": false
     },
     "objectModelDefinition": {
       "type": "object",
@@ -145,6 +216,9 @@
             "name",
             "uri"
           ]
+        },
+        "accessMethods": {
+          "$ref": "#/definitions/accessMethodsDefinition"
         }
       }
     },
@@ -236,9 +310,6 @@
         "description",
         "type"
       ]
-    },
-    "endpointsDefinition": {
-      "type": "object"
     }
   }
 }

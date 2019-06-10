@@ -1,225 +1,289 @@
 {
-  "$schema": "http://json-schema.org/draft-06/schema#", // this schema is based on
-  "title": "RSI Validation Schema", // the validation schemas title
-  "version": "2.0.0", // its version
-  "$ref": "#/definitions/serviceDefinition", // the root element
-  "definitions": {
+  $schema: "http://json-schema.org/draft-06/schema#", // this schema is based on
+  title: "RSI Validation Schema", // the validation schemas title
+  version: "2.0.0", // its version
+  $ref: "#/definitions/serviceDefinition", // the root element
+  definitions: {
     // all the definitions follow
-    "serviceDefinition": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "pattern": "^(viwi|rsi)\\.service\\.[a-z0-9]+$"
+    serviceDefinition: {
+      type: "object",
+      properties: {
+        name: {
+          // the name ot he service
+          type: "string",
+          pattern: "^(viwi|rsi)\\.service\\.[a-z0-9]+$" //@@TODO: is "viwi." still needed?
         },
         "resources": {
-          "type": "object",
-          "patternProperties": {
-            "^[a-zA-Z0-9]+$": {
-              "$ref": "#/definitions/resourcesObjectDefinition"
+          // carries a map of resources provided by the service
+          type: "object",
+          patternProperties: {
+            "^[a-zA-Z0-9]+$": { // the key represents the resources name
+              $ref: "#/definitions/resourcesObjectDefinition"
             }
           }
         },
         "types": {
-          "$ref": "#/definitions/typesDefinition"
+          // carries a map of types for this services `namespace`
+          $ref: "#/definitions/typesDefinition"
         },
-        "description": {
-          "type": "string"
+        description: {
+          // a service description
+          type: "string"
         },
-        "$schema": {
-          "type": "string"
+        $schema: {
+          // the schema to validate against
+          type: "string"
         }
       },
-      "required": ["description", "name", "$schema"],
-      "additionalProperties": false
+      required: ["description", "name", "$schema"],
+      additionalProperties: false
     },
-    "accessMethodsDefinition" : {
-      "type": "object"
-    },
-    "resourcesObjectDefinition": {
-      "type": "object",
-      "properties": {
-        "description": {
-          "type": "string"
+    accessMethodsDefinition : {
+      type: "object",
+      properties: {
+        get: {
+          // HTTP GET request support
+          $ref: "#/definitions/accessMethodsDetailsDefinition"
         },
-        "objectModel": {
-          "$ref": "#/definitions/objectModelDefinition"
+        put: {
+          // HTTP PUT request support
+          $ref: "#/definitions/accessMethodsDetailsDefinition"
+        },
+        post: {
+          // HTTP POST request support
+          $ref: "#/definitions/accessMethodsDetailsDefinition"
+        },
+        delete: {
+          // HTTP DELETE request support
+          $ref: "#/definitions/accessMethodsDetailsDefinition"
+        },
+        subscribe: {
+          // WebSocket subscribe support
+          $ref: "#/definitions/accessMethodsDetailsDefinition"
+        },
+      additionalProperties: false
+      }
+    },
+    accessMethodsDetailsDefinition: {
+      /* needs to become its own definition for re-use */
+      type: "object",
+      properties: {
+        parameters: {
+          type: object
+          /* @@TODO needs more details */
+        },
+        usesPermissions: {
+          type: "array",
+          items: {
+            type: "string",
+            pattern: ^\w+Read|Write$
+          }
+        },
+        "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
+          type: "object",
+          patternProperties: {
+            "^[a-zA-Z0-9]+$" : {
+              type: "object",
+              properties: {
+                description: {
+                  // a description of the headers purpose
+                  type: "string"
+                },
+                isRequired: {
+                  type: "boolean"
+                }, // marks it as required with every request
+                type: {
+                  type: "string" // its type
+                }
+              },
+              additionalProperties: false
+            }
+          }
         }
-        "endpoints" : {
-          "$ref": "#/definitions/endpointsDefinition"
+        additionalProperties: false
+      },
+      required: ["parameters", "usesPermissions"]
+    },
+    resourcesObjectDefinition: {
+      type: "object",
+      properties: {
+        description: {
+          type: "string"
+        },
+        objectModel: {
+          $ref: "#/definitions/objectModelDefinition"
         },
         "accessMethods": {
-          "$ref": "#/definitions/accessMethodsDefinition"
+          $ref: "#/definitions/accessMethodsDefinition"
         }
       },
-      "required": ["description", "objectModel"],
-      "additionalProperties": false
+      required: ["description", "objectModel"],
+      additionalProperties: false
     },
-    "typesDefinition": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
+    typesDefinition: {
+      // carries a map of types provided by the service
+      type: "object",
+      patternProperties: {
+        "^[a-zA-Z0-9]+$": { // the key represents the type name
+          $ref: "#/definitions/typeModelDefinition"
+        }
+      },
+      additionalProperties: false
+    },
+    typeModelDefinition: {
+      // describes the actual type
+      type: "object",
+      properties: {
+        description: {
+          type: "string"
         },
-        "description": {
-          "type": "string"
+        attributes: {
+          type: "object",
+          patternProperties: {
+            "^[a-zA-Z0-9]+$": {
+              $ref: "#/definitions/objectPropertyDefinition"
+            }
+          },
+          additionalProperties: false
         }
       },
-      "required": ["description"],
-      "additionalProperties": true
+      required: ["description", "attributes"],
+      additionalProperties: false
     },
-    "objectModelDefinition": {
+    objectModelDefinition: {
       type: "object",
       properties: {
         attributes: {
-          "type": "object",
-          "properties": {
-            /*"id": {
-              "type": "object",
-              "properties": {
-                "description": {
-                  "type": "string",
+          type: "object",
+          properties: {
+            id: {
+              type: "object",
+              properties: {
+                description: {
+                  type: "string",
                   "minLength": 2
                 },
-                "type": {
-                  "type": "string",
-                  "enum": ["string", "number", "integer", "boolean", "array", "object"]
+                type: {
+                  type: "string",
+                  pattern: "string"
                 },
-                "format": {
-                  "type": "string",
-                  "pattern": "uuid"
-                }
-              },
-              "required": ["description", "type", "format"]
-            },*/
-            "id": {
-              "type": "object",
-              "properties": {
-                "description": {
-                  "type": "string",
-                  "minLength": 2
-                },
-                "type": {
-                  "type": "string",
-                  "pattern": "string"
-                },
-                "format": {
-                  "type": "string",
-                  "pattern": "uuid"
+                format: {
+                  type: "string",
+                  pattern: "uuid"
                 }
               }
             },
-            "name": {
-              "type": "object",
-              "properties": {
-                "description": {
-                  "type": "string"
+            name: {
+              type: "object",
+              properties: {
+                description: {
+                  type: "string"
                 },
-                "type": {
-                  "type": "string",
-                  "pattern": "string"
+                type: {
+                  type: "string",
+                  pattern: "string"
                 }
               }
             },
             "uri": {
-              "type": "object",
-              "properties": {
-                "description": {
-                  "type": "string",
+              type: "object",
+              properties: {
+                description: {
+                  type: "string",
                   "minLength": 2
                 },
-                "type": {
-                  "type": "string",
-                  "pattern": "string"
+                type: {
+                  type: "string",
+                  pattern: "string"
                 },
-                "format": {
-                  "type": "string",
-                  "pattern": "uri"
+                format: {
+                  type: "string",
+                  pattern: "uri"
                 }
               },
-              "required": ["description", "type", "format"]
+              required: ["description", "type", "format"]
             }
           },
-          "patternProperties": {
+          patternProperties: {
             "^[a-zA-Z0-9]+$": {
-              "$ref": "#/definitions/objectPropertyDefinition"
+              $ref: "#/definitions/objectPropertyDefinition"
             }
           },
-          "additionalProperties": false,
-          "required" : ["id", "name", "uri"]
+          additionalProperties: false,
+          required : ["id", "name", "uri"]
+        },
+        "accessMethods": {
+          $ref: "#/definitions/accessMethodsDefinition" // @@TODO: does it need differentiation between resource level and element level?
         }
       }
     },
     "objectModelReference": {
-      "type": "object",
-      "properties": {
+      type: "object",
+      properties: {
         "#ref": {
-          "type": "string",
-          "pattern": "^([a-zA-Z]+\\.[a-zA-Z]+Object|[a-zA-Z]+\\.[a-zA-Z]+Type)$"
+          type: "string",
+          pattern: "^([a-zA-Z]+\\.[a-zA-Z]+Object|[a-zA-Z]+\\.[a-zA-Z]+Type)$"
         }
       },
-      "additionalProperties": false,
-      "required": ["#ref"]
+      additionalProperties: false,
+      required: ["#ref"]
     },
-    "objectPropertyDefinition": {
-      "type": "object",
-      "properties": {
-        "description": {
-          "type": "string",
+    objectPropertyDefinition: {
+      type: "object",
+      properties: {
+        description: {
+          type: "string",
           "minLength": 2
         },
-        "type": {
-          "type": "string",
-          "enum": ["string", "number", "integer", "boolean", "array", "object"]
+        type: {
+          type: "string",
+          enum: ["string", "number", "integer", "boolean", "array", "object"]
         },
-        "format": {
-          "type": "string"
+        format: {
+          type: "string"
         },
         "enum" : {
-          "type": "array"
+          type: "array"
         },
         "minimum": {
-          "type": "number"
+          type: "number"
         },
         "maximum": {
-          "type": "number"
+          type: "number"
         },
         "resolution": {
-          "type": "number"
+          type: "number"
         },
         "unit": {
-          "type": "string"
+          type: "string"
         },
         "oneOf": {
-          "type": "array",
+          type: "array",
           "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/objectModelReference"
+          items: {
+            $ref: "#/definitions/objectModelReference"
           }
         },
-        "items": {
-          "type": "object",
-          "properties" : {
-            "type" : {
-              "type" : "string",
-              "enum": ["string", "number", "integer", "boolean", "array", "object"]
+        items: {
+          type: "object",
+          properties: {
+            type: {
+              type: "string",
+              enum: ["string", "number", "integer", "boolean", "array", "object"]
             },
             "oneOf": {
-              "type": "array",
+              type: "array",
               "minItems": 1,
-              "items": {
-                "$ref": "#/definitions/objectModelReference"
+              items: {
+                $ref: "#/definitions/objectModelReference"
                 }
             }
           },
-          "required" : ["type"]
+          required : ["type"]
         }
       },
-      "additionalProperties": false,
-      "required": ["description", "type"]
-    },
-    endpointsDefinition : {
-      "type": "object"
+      additionalProperties: false,
+      required: ["description", "type"]
     }
   }
 }
