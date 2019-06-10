@@ -10,12 +10,14 @@
       "properties": {
         "name": {
           "type": "string",
-          "pattern": "^(viwi|rsi)\\.service\\.[a-z0-9]+$"
+          "pattern": "^rsi\\.service\\.[a-z0-9]+$"
         },
         "resources": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/resourcesObjectDefinition"
+          type: "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": {
+              "$ref": "#/definitions/resourcesObjectDefinition"
+            }
           }
         },
         "types": {
@@ -31,25 +33,24 @@
       "required": ["description", "name", "$schema"],
       "additionalProperties": false
     },
+    
     "resourcesObjectDefinition": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string"
-        }
         "description": {
           "type": "string"
         },
         "objectModel": {
           "$ref": "#/definitions/objectModelDefinition"
-        }
-        "endpoints" : {
-          "$ref": "#/definitions/endpointsDefinition"
+        },
+        "accessMethods": {
+          "$ref": "#/definitions/resourceAccessMethodsDefinition"
         }
       },
-      "required": ["description", "name"],
+      "required": ["description"],
       "additionalProperties": false
     },
+    
     "typesDefinition": {
       "type": "object",
       "properties": {
@@ -63,62 +64,116 @@
       "required": ["description"],
       "additionalProperties": true
     },
+    
+    "elementAccessMethodsDefinition" : {
+      "type": "object"
+      "patternProperties": {
+        "^get|delete|post|put|subscribe$": {
+          "$ref": "#/definitions/accessMethodDefinition"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "resourceAccessMethodsDefinition" : {
+      "type": "object"
+      "patternProperties": {
+        "^get|post|subscribe$": {
+          "$ref": "#/definitions/accessMethodDefinition"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "accessMethodDefinition" : {
+      "type": "object",
+      "properties" : {
+        "usesPermissions": {
+          "type": "array"
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-zA-Z0-9]+Read|Write$" // uses lowerCamelCase and need a Write or Read at the end
+          }
+        },
+        "description" : {
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/definitions/parametersDefinition"
+        }
+      },
+      "additionalProperties": false
+    }
+
     "objectModelDefinition": {
       "type": "object",
       "properties": {
-        "id": {
+        "attributes" : {
           "type": "object",
           "properties": {
-            "description": {
-              "type": "string",
-              "minLength": 2
+            "id": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "minLength": 2
+                },
+                "type": {
+                  "type": "string",
+                  "pattern": "string"
+                },
+                "format": {
+                  "type": "string",
+                  "pattern": "uuid"
+                }
+              },
+              "required": ["description", "type", "format"]
             },
-            "type": {
-              "type": "string",
-              "enum": ["string", "number", "integer", "boolean", "array", "object"]
+            "name": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "pattern": "string"
+                }
+              }
             },
-            "format": {
-              "type": "string",
-              "pattern": "uuid"
+            "uri": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "minLength": 2
+                },
+                "type": {
+                  "type": "string",
+                  "pattern": "string"
+                },
+                "format": {
+                  "type": "string",
+                  "pattern": "uri"
+                }
+              },
+              "required": ["description", "type", "format"]
             }
           },
-          "required": ["description", "type", "format"]
-        },
-        "name": {
-          "type": "object",
-          "properties": {
-            "description": {
-              "type": "string"
-            }
-          }
-        },
-        "uri": {
-          "type": "object",
-          "properties": {
-            "description": {
-              "type": "string",
-              "minLength": 2
-            },
-            "type": {
-              "type": "string",
-              "pattern": "string"
-            },
-            "format": {
-              "type": "string",
-              "pattern": "uri"
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": {
+              "$ref": "#/definitions/objectPropertyDefinition"
             }
           },
-          "required": ["description", "type", "format"]
+          "additionalProperties": false,
+          "required" : ["id", "name", "uri"]
+        },
+        "accessMethods": {
+          "$ref": "#/definitions/elementAccessMethodsDefinition"
         }
-      },
-      "patternProperties": {
-        "^[a-zA-Z0-9]+$": {
-          "$ref": "#/definitions/objectPropertyDefinition"
-        }
-      },
-      "additionalProperties": false,
-      "required" : ["id", "name", "uri"]
+      }
     },
+    
     "objectModelReference": {
       "type": "object",
       "properties": {
@@ -130,65 +185,142 @@
       "additionalProperties": false,
       "required": ["#ref"]
     },
-    "objectPropertyDefinition": {
+    objectPropertyDefinition : {
+      "type": "object",
+      "anyOf": [ // @@@ TODO: switch to oneOf for stricter checks
+        { "$ref": "#/definitions/numberTypeDefintion" },
+        { "$ref": "#/definitions/booleanTypeDefintion" },
+        { "$ref": "#/definitions/objectTypeDefintion" },
+        { "$ref": "#/definitions/stringTypeDefintion" },
+        {
+          "type": "object"
+          
+          ///@@@ TODO stricter check 
+
+          /*,
+          "properties": {
+            "description": { // description is a mandatory field of any attribute definition
+              "type": "string"
+            }, 
+            "type": {
+              "type": "string",
+              "pattern": "array"
+            },
+            "items": {
+              "type": "object"
+              "items" : {
+                "anyOf": [
+                  { "$ref": "#/definitions/numberTypeDefintion" },
+                  { "$ref": "#/definitions/booleanTypeDefintion" },
+                  { "$ref": "#/definitions/objectTypeDefintion" },
+                  { "$ref": "#/definitions/stringTypeDefintion" }
+                ]
+              },
+              "additionalProperties": false
+            }
+          },*/
+          // "additionalProperties": false
+        }
+      ]
+    },
+
+    "parametersDefinition": {
+      "type": "object"
+      "patternProperties": {
+        "^[a-zA-Z0-9]+$": {
+          "type": "object",
+          /// @@TODO: become more specific
+        },
+        "additionalProperties": false
+      }
+    },
+
+    "numberTypeDefintion": {
       "type": "object",
       "properties": {
-        "description": {
-          "type": "string",
-          "minLength": 2
-        },
-        "type": {
-          "type": "string",
-          "enum": ["string", "number", "integer", "boolean", "array", "object"]
-        },
-        "format": {
+        "description": { // description is a mandatory field of any attribute definition
           "type": "string"
-        },
-        "enum" : {
-          "type": "array"
-        },
-        "minimum": {
+        }, 
+        "type": { // this attribute is of type number
+          "type": "string",
+          "pattern": "number"
+        }, 
+        "resolution": { // specifies numbers resolution - value 1 describes an integer
           "type": "number"
-        },
-        "maximum": {
+        }, 
+        "minimum": { // specifies the minumum value (optional)
           "type": "number"
-        },
-        "resolution": {
+        }, 
+        "maximum": { // specifies the maximum value (optional)
           "type": "number"
-        },
-        "unit": {
+        }, 
+        "unit": { // the <unit> the value is measured in (optional)
           "type": "string"
-        },
-        "oneOf": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/objectModelReference"
-          }
-        },
-        "items": {
-          "type": "object",
-          "properties" : {
-            "type" : {
-              "type" : "string",
-              "enum": ["string", "number", "integer", "boolean", "array", "object"]
-            },
-            "oneOf": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/definitions/objectModelReference"
-                }
-            }
-          },
-          "required" : ["type"]
+        } 
+      },
+      "additionalProperties": false,
+      "required": ["description", "type", "resolution"]
+    },
+
+    "booleanTypeDefintion": {
+      "type": "object",
+      "properties": {
+        "description": { // description is a mandatory field of any attribute definition
+          "type": "string"
+        }, 
+        "type": { // this attribute is of type number
+          "type": "string",
+          "pattern": "boolean"
         }
       },
       "additionalProperties": false,
       "required": ["description", "type"]
     },
-    endpointsDefinition : {
-      "type": "object"
+
+    "stringTypeDefintion": {
+      "type": "object",
+      "properties": {
+        "description": { // description is a mandatory field of any attribute definition
+          "type": "string"
+        }, 
+        "type": { // this attribute is of type number
+          "type": "string",
+          "pattern": "string"
+        },
+        "format": { // this attribute is of type number
+          "type": "string" // the string value of the attribute/property will be in the <format> - predefined or regex - format (optional)
+        },
+        "enum": {  // limits the number of valid values (optional)
+          "type": "array",
+          "items": {
+            "type" : "string" // might even be a javascript compliant regex pattern
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": ["description", "type"]
+    },
+
+    "objectTypeDefintion": {
+      "type": "object",
+      "properties": {
+        "description": { // description is a mandatory field of any attribute definition
+          "type": "string"
+        }, 
+        "type": { // this attribute is of type string
+          "type": "string",
+          "pattern": "object"
+        },
+        "oneOf": {  // limits the number of valid values (optional)
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/objectModelReference"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": ["description", "type"]
     }
   }
 }
