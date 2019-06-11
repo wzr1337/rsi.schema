@@ -9,7 +9,7 @@
       "properties": {
         "name": {
           "type": "string",
-          "pattern": "^(viwi|rsi)\\.service\\.[a-z0-9]+$"
+          "pattern": "^rsi\\.service\\.[a-z0-9]+$"
         },
         "resources": {
           "type": "object",
@@ -36,8 +36,42 @@
       ],
       "additionalProperties": false
     },
-    "accessMethodsDefinition": {
-      "type": "object"
+    "elementAccessMethodsDefinition": {
+      "type": "object",
+      "patternProperties": {
+        "^get|delete|post|put|subscribe$": {
+          "$ref": "#/definitions/accessMethodDefinition"
+        }
+      },
+      "additionalProperties": false
+    },
+    "resourceAccessMethodsDefinition": {
+      "type": "object",
+      "patternProperties": {
+        "^get|post|subscribe$": {
+          "$ref": "#/definitions/accessMethodDefinition"
+        }
+      },
+      "additionalProperties": false
+    },
+    "accessMethodDefinition": {
+      "type": "object",
+      "properties": {
+        "usesPermissions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-zA-Z0-9]+Read|Write$"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/definitions/parametersDefinition"
+        }
+      },
+      "additionalProperties": false
     },
     "resourcesObjectDefinition": {
       "type": "object",
@@ -48,11 +82,8 @@
         "objectModel": {
           "$ref": "#/definitions/objectModelDefinition"
         },
-        "endpoints": {
-          "$ref": "#/definitions/endpointsDefinition"
-        },
         "accessMethods": {
-          "$ref": "#/definitions/accessMethodsDefinition"
+          "$ref": "#/definitions/resourceAccessMethodsDefinition"
         }
       },
       "required": [
@@ -63,18 +94,34 @@
     },
     "typesDefinition": {
       "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]+$": {
+          "$ref": "#/definitions/typeModelDefinition"
+        }
+      },
+      "additionalProperties": false
+    },
+    "typeModelDefinition": {
+      "type": "object",
       "properties": {
-        "name": {
-          "type": "string"
-        },
         "description": {
           "type": "string"
+        },
+        "attributes": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": {
+              "$ref": "#/definitions/objectPropertyDefinition"
+            }
+          },
+          "additionalProperties": false
         }
       },
       "required": [
-        "description"
+        "description",
+        "attributes"
       ],
-      "additionalProperties": true
+      "additionalProperties": false
     },
     "objectModelDefinition": {
       "type": "object",
@@ -97,7 +144,12 @@
                   "type": "string",
                   "pattern": "uuid"
                 }
-              }
+              },
+              "required": [
+                "description",
+                "type",
+                "format"
+              ]
             },
             "name": {
               "type": "object",
@@ -145,6 +197,9 @@
             "name",
             "uri"
           ]
+        },
+        "accessMethods": {
+          "$ref": "#/definitions/elementAccessMethodsDefinition"
         }
       }
     },
@@ -163,27 +218,45 @@
     },
     "objectPropertyDefinition": {
       "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/numberTypeDefintion"
+        },
+        {
+          "$ref": "#/definitions/booleanTypeDefintion"
+        },
+        {
+          "$ref": "#/definitions/objectTypeDefintion"
+        },
+        {
+          "$ref": "#/definitions/stringTypeDefintion"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "parametersDefinition": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]+$": {
+          "type": "object"
+        },
+        "additionalProperties": false
+      }
+    },
+    "numberTypeDefintion": {
+      "type": "object",
       "properties": {
         "description": {
-          "type": "string",
-          "minLength": 2
+          "type": "string"
         },
         "type": {
           "type": "string",
-          "enum": [
-            "string",
-            "number",
-            "integer",
-            "boolean",
-            "array",
-            "object"
-          ]
+          "pattern": "number"
         },
-        "format": {
-          "type": "string"
-        },
-        "enum": {
-          "type": "array"
+        "resolution": {
+          "type": "number"
         },
         "minimum": {
           "type": "number"
@@ -191,44 +264,26 @@
         "maximum": {
           "type": "number"
         },
-        "resolution": {
-          "type": "number"
-        },
         "unit": {
           "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "type",
+        "resolution"
+      ]
+    },
+    "booleanTypeDefintion": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
         },
-        "oneOf": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/objectModelReference"
-          }
-        },
-        "items": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": [
-                "string",
-                "number",
-                "integer",
-                "boolean",
-                "array",
-                "object"
-              ]
-            },
-            "oneOf": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "$ref": "#/definitions/objectModelReference"
-              }
-            }
-          },
-          "required": [
-            "type"
-          ]
+        "type": {
+          "type": "string",
+          "pattern": "boolean"
         }
       },
       "additionalProperties": false,
@@ -237,8 +292,55 @@
         "type"
       ]
     },
-    "endpointsDefinition": {
-      "type": "object"
+    "stringTypeDefintion": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "pattern": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "enum": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "type"
+      ]
+    },
+    "objectTypeDefintion": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "pattern": "object"
+        },
+        "oneOf": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/objectModelReference"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "type"
+      ]
     }
   }
 }

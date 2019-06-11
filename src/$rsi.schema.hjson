@@ -1,9 +1,9 @@
 {
-  "$schema": "http://json-schema.org/draft-06/schema#", // this schema is based on
-  "title": "RSI Validation Schema", // the validation schemas title
-  "version": "2.0.0", // its version
-  "$ref": "#/definitions/serviceDefinition", // the root element
-  "definitions": {
+  $schema: "http://json-schema.org/draft-06/schema#", // this schema is based on
+  title: "RSI Validation Schema", // the validation schemas title
+  version: "2.0.0", // its version
+  $ref: "#/definitions/serviceDefinition", // the root element
+  definitions: {
     // all the definitions follow
     "serviceDefinition": {
       "type": "object",
@@ -13,10 +13,11 @@
           "pattern": "^rsi\\.service\\.[a-z0-9]+$"
         },
         "resources": {
+          // carries a map of resources provided by the service
           type: "object",
-          "patternProperties": {
-            "^[a-zA-Z0-9]+$": {
-              "$ref": "#/definitions/resourcesObjectDefinition"
+          patternProperties: {
+            "^[a-zA-Z0-9]+$": { // the key represents the resources name
+              $ref: "#/definitions/resourcesObjectDefinition"
             }
           }
         },
@@ -33,38 +34,6 @@
       "required": ["description", "name", "$schema"],
       "additionalProperties": false
     },
-    
-    "resourcesObjectDefinition": {
-      "type": "object",
-      "properties": {
-        "description": {
-          "type": "string"
-        },
-        "objectModel": {
-          "$ref": "#/definitions/objectModelDefinition"
-        },
-        "accessMethods": {
-          "$ref": "#/definitions/resourceAccessMethodsDefinition"
-        }
-      },
-      "required": ["description"],
-      "additionalProperties": false
-    },
-    
-    "typesDefinition": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        }
-      },
-      "required": ["description"],
-      "additionalProperties": true
-    },
-    
     "elementAccessMethodsDefinition" : {
       "type": "object"
       "patternProperties": {
@@ -104,27 +73,72 @@
       },
       "additionalProperties": false
     }
-
-    "objectModelDefinition": {
+    "resourcesObjectDefinition": {
       "type": "object",
       "properties": {
-        "attributes" : {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "object",
-              "properties": {
-                "description": {
-                  "type": "string",
+        "description": {
+          "type": "string"
+        },
+        "objectModel": {
+          "$ref": "#/definitions/objectModelDefinition"
+        },
+        "accessMethods": {
+          $ref: "#/definitions/resourceAccessMethodsDefinition"
+        }
+      },
+      required: ["description", "objectModel"],
+      additionalProperties: false
+    },
+    typesDefinition: {
+      // carries a map of types provided by the service
+      type: "object",
+      patternProperties: {
+        "^[a-zA-Z0-9]+$": { // the key represents the type name
+          $ref: "#/definitions/typeModelDefinition"
+        }
+      },
+      additionalProperties: false
+    },
+    typeModelDefinition: {
+      // describes the actual type
+      type: "object",
+      properties: {
+        description: {
+          type: "string"
+        },
+        attributes: {
+          type: "object",
+          patternProperties: {
+            "^[a-zA-Z0-9]+$": {
+              $ref: "#/definitions/objectPropertyDefinition"
+            }
+          },
+          additionalProperties: false
+        }
+      },
+      required: ["description", "attributes"],
+      additionalProperties: false
+    },
+    objectModelDefinition: {
+      type: "object",
+      properties: {
+        attributes: {
+          type: "object",
+          properties: {
+            id: {
+              type: "object",
+              properties: {
+                description: {
+                  type: "string",
                   "minLength": 2
                 },
-                "type": {
-                  "type": "string",
-                  "pattern": "string"
+                type: {
+                  type: "string",
+                  pattern: "string"
                 },
-                "format": {
-                  "type": "string",
-                  "pattern": "uuid"
+                format: {
+                  type: "string",
+                  pattern: "uuid"
                 }
               },
               "required": ["description", "type", "format"]
@@ -173,7 +187,6 @@
         }
       }
     },
-    
     "objectModelReference": {
       "type": "object",
       "properties": {

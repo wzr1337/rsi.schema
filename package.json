@@ -1,6 +1,6 @@
 {
   "name": "rsi.schema",
-  "version": "2.0.1-pre",
+  "version": "2.0.2-pre",
   "description": "In order to have properly structured schemas, we need a validation scheme that can work with any JSON validator.",
   "main": "index.js",
   "directories": {
@@ -11,6 +11,7 @@
     "@types/ajv": "^1.0.0",
     "@types/node": "^10.11.3",
     "ajv": "^6.5.4",
+    "conventional-changelog-cli": "^2.0.21",
     "hjson": "^3.1.1",
     "typescript": "^3.1.1"
   },
@@ -18,7 +19,8 @@
     "build:schema": "hjson -j src/\\$rsi.schema.hjson > ./dist/\\$rsi.schema.json",
     "build:validator": "tsc",
     "validate": "node ./dist/cli.js",
-    "validate:media": "npm run validate -- media"
+    "validate:media": "npm run validate -- media",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
   "repository": {
     "type": "git",
