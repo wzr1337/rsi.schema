@@ -1,6 +1,6 @@
 {
   "name": "rsi.schema",
-  "version": "2.0.2-pre",
+  "version": "2.0.0-pre2",
   "description": "In order to have properly structured schemas, we need a validation scheme that can work with any JSON validator.",
   "main": "index.js",
   "directories": {
