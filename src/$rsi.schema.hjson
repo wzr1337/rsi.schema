@@ -110,7 +110,7 @@
           type: "object",
           patternProperties: {
             "^[a-zA-Z0-9]+$": {
-              $ref: "#/definitions/objectPropertyDefinition"
+              $ref: "#/definitions/attributeDefinition"
             }
           },
           additionalProperties: false
@@ -176,7 +176,7 @@
           },
           "patternProperties": {
             "^[a-zA-Z0-9]+$": {
-              "$ref": "#/definitions/objectPropertyDefinition"
+              "$ref": "#/definitions/attributeDefinition"
             }
           },
           "additionalProperties": false,
@@ -198,7 +198,7 @@
       "additionalProperties": false,
       "required": ["#ref"]
     },
-    objectPropertyDefinition : {
+    attributeDefinition : {
       "type": "object",
       "anyOf": [ // @@@ TODO: switch to oneOf for stricter checks
         { "$ref": "#/definitions/numberTypeDefintion" },
