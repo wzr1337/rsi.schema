@@ -124,7 +124,8 @@
           },
           "mediaindex": {
             "description": "DEPRECATED: index of actual media object if media is a collection (starting index is 0)",
-            "type": "integer",
+            "type": "number",
+            "resolution": 1,
             "minimum": 0
           },
           "currentMediaItem": {
@@ -156,7 +157,8 @@
           },
           "offset": {
             "description": "current offset",
-            "type": "integer",
+            "type": "number",
+            "resolution": 1,
             "minimum": 0,
             "unit": "ms"
           },
@@ -207,7 +209,8 @@
                 "format": "uri"
               },
               "mediaindex": {
-                "type": "integer",
+                "type": "number",
+                "resolution": 1,
                 "minimum": 0
               },
               "currentMediaItem": {
@@ -215,7 +218,8 @@
                 "format": "uri"
               },
               "offset": {
-                "type": "integer",
+                "type": "number",
+                "resolution": 1,
                 "minimum": 0,
                 "unit": "ms"
               },
