@@ -131,31 +131,19 @@ The `<>` notation us understood as a place holder.
         "accessMethods": { // describes the access methods on /<service>/<resource>/<element> level, i.e the operations you can perform on the element defined in th `objectModel` property
           "get": { // defines the GET method to be performable on /<service>/<resource>/<element> level
             "parameters": {},
-            "additionalHeaders": { // allows additional, non-standard headers specific to the request (optional)
-              "<header>": { // makes the <header> available for transport
-                "isRequired": true, // marks the attribute to be required on each request (optional)
-                "type": "string" // headers are always strings
-              }
-            },
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
               "<scope>Read" // A `Read` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaRead
             ],
             "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
               "<someHeaderName>": {
                 "description": "<this header is used for ...>" // a description of the headers purpose
-                "isRequired": true|false, // marks it as required with every request
+                "isRequired": true|false, // marks it as required with every request (optional)
                 "type": "string" // its type
               }
             }
           },
           "post": { // defines the POST method to be performable on /<service>/<resource>/<element> level to mdoify an element
             "description": "Lorem Ipsum", // a description
-            "additionalHeaders": { // allows additional, non-standard headers specific to the request (optional)
-              "<header>": { // makes the <header> available for transport
-                "isRequired": true, // marks the attribute to be required on each request (optional)
-                "type": "string" // headers are always strings
-              }
-            },
             "parameters": { // holds all all the attributes being able to be modified via POST
               "<stringAttribute>": { // makes the <stringAttribute> available for modification
                 "isRequired": true, // marks the attribute to be required on each request (optional)
@@ -168,26 +156,20 @@ The `<>` notation us understood as a place holder.
             "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
               "<someHeaderName>": {
                 "description": "<this header is used for ...>" // a description of the headers purpose
-                "isRequired": true|false, // marks it as required with every request
+                "isRequired": true|false, // marks it as required with every request (optional)
                 "type": "string" // its type
               }
             }
           },
           "delete": { // defines the DELETE method to be performable on /<service>/<resource>/<element> level to delete an element
             "parameters": {},
-            "additionalHeaders": { // allows additional, non-standard headers specific to the request (optional)
-              "<header>": { // makes the <header> available for transport
-                "isRequired": true, // marks the attribute to be required on each request (optional)
-                "type": "string" // headers are always strings
-              }
-            },
             "usesPermissions": [ // defines which permissions are needed to be present in the auth token to perform the described operation
               "<scope>Write" // A `Write` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaWrite
             ],
             "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
               "<someHeaderName>": {
                 "description": "<this header is used for ...>" // a description of the headers purpose
-                "isRequired": true|false, // marks it as required with every request
+                "isRequired": true|false, // marks it as required with every request (optional)
                 "type": "string" // its type
               }
             }
@@ -203,12 +185,6 @@ The `<>` notation us understood as a place holder.
       "accessMethods": {
         "post": { // defines the POST method to be performable on /<service>/<resource>/ level, i.e creat new elements (server side id)
           "description": "Lorem Ipsum amet sit",
-          "additionalHeaders": { // allows additional, non-standard headers specific to the request (optional)
-            "<header>": { // makes the <header> available for transport
-              "isRequired": true, // marks the attribute to be required on each request (optional)
-              "type": "string" // headers are always strings
-            }
-          },
           "parameters": { // holds all the attributes being able to be given when creating new elements via POST
             "<stringAttribute>": { // makes the <stringAttribute> available for creation
               "isRequired": true, // marks the attribute to be required on each request (optional)
@@ -221,19 +197,13 @@ The `<>` notation us understood as a place holder.
           "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
             "<someHeaderName>": {
               "description": "<this header is used for ...>" // a description of the headers purpose
-              "isRequired": true|false, // marks it as required with every request
+              "isRequired": true|false, // marks it as required with every request (optional)
               "type": "string" // its type
             }
           }
         },
         "put": { // defines the PUT method to be performable on /<service>/<resource>/ level, i.e create new elements letting the client decide about the id/name of the element (rarely used)
           "description": "Lorem Ipsum amet sit",
-          "additionalHeaders": { // allows additional, non-standard headers specific to the request (optional)
-            "<header>": { // makes the <header> available for transport
-              "isRequired": true, // marks the attribute to be required on each request (optional)
-              "type": "string" // headers are always strings
-            }
-          },
           "parameters": { // holds all the attributes being able to be given when creating new elements via PUT
             "<stringAttribute>": { // makes the <stringAttribute> available for creation
               "isRequired": true, // marks the attribute to be required on each request (optional)
@@ -246,7 +216,7 @@ The `<>` notation us understood as a place holder.
           "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
             "<someHeaderName>": {
               "description": "<this header is used for ...>" // a description of the headers purpose
-              "isRequired": true|false, // marks it as required with every request
+              "isRequired": true|false, // marks it as required with every request (optional)
               "type": "string" // its type
             }
           }
@@ -258,19 +228,13 @@ The `<>` notation us understood as a place holder.
               "type": "string"
             }
           },
-          "additionalHeaders": { // allows additional, non-standard headers specific to the request (optional)
-            "<header>": { // makes the <header> available for transport
-              "isRequired": true, // marks the attribute to be required on each request (optional)
-              "type": "string" // headers are always strings
-            }
-          },
           "usesPermissions": [
             "<scope>Read" // A `Read` level permission is needed. <scope> describes and abstract scope, e.g. media => mediaRead
           ],
           "additionalHeaders": { // additional headers which might need to be sent with the request (optional)
             "<someHeaderName>": {
               "description": "<this header is used for ...>" // a description of the headers purpose
-              "isRequired": true|false, // marks it as required with every request
+              "isRequired": true|false, // marks it as required with every request (optional)
               "type": "string" // its type
             }
           }
