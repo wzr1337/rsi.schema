@@ -17,10 +17,10 @@ Please feel free to jump in and contribute.
 ## Using the cli
 
 ```bash
-$ npm run validate -- examples/foo/schema.json
+$ npm run validate -- examples/foo/serviceDefinition.json
 ```
 
-will run the validator against `examples/foo/schema.json`
+will run the validator against `examples/foo/serviceDefinition.json`
 
 ### validating media
 ```bash

@@ -21,7 +21,7 @@ function readFile(filename:string){
 }
 
 export async function validate(candidatePath?:string):Promise<any> {
-  candidatePath = candidatePath || path.join(process.cwd(), "src/schema.json");
+  candidatePath = candidatePath || path.join(process.cwd(), "src/serviceDefinition.json");
   let ajv = new Ajv({
     //schemaId: 'id',
     allErrors: true,

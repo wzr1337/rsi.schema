@@ -34,7 +34,7 @@ function readFile(filename) {
 }
 function validate(candidatePath) {
     return __awaiter(this, void 0, void 0, function* () {
-        candidatePath = candidatePath || path_1.default.join(process.cwd(), "src/schema.json");
+        candidatePath = candidatePath || path_1.default.join(process.cwd(), "src/serviceDefinition.json");
         let ajv = new ajv_1.default({
             //schemaId: 'id',
             allErrors: true,
