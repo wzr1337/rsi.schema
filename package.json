@@ -13,7 +13,7 @@
     "@types/ajv": "^1.0.0",
     "@types/node": "^10.11.3",
     "ajv": "^6.5.4",
-    "conventional-changelog-cli": "^2.0.21",
+    "conventional-changelog-cli": "^2.2.2",
     "hjson": "^3.1.1",
     "typescript": "^3.1.1"
   },
