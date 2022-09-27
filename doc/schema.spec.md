@@ -18,12 +18,12 @@ rsi.service.<servicename> $ tree -a
 │   ├── ...
 ├── package.json
 └── src
-    └── schema.json
+    └── serviceDefinition.json
 ```
 
 contents as follows:
 
-* the actual service definition in  src/schema.json
+* the actual service definition in  src/serviceDefinition.json
 * a package.json file holding meta data and dependencies
 * a doc folder for detaileld documentation (e.g. workflow diagrams etc.)
 * a general README.md
