@@ -1,5 +1,5 @@
-var inputfile = './src/$rsi.schema.yml',
-    outputfile = './dist/$rsi.schema.json',
+var inputfile = './src/rsi.schema.yml',
+    outputfile = './dist/rsi.schema.json',
     yaml = require('js-yaml'),
     fs = require('fs'),
     obj = yaml.load(fs.readFileSync(inputfile, {encoding: 'utf-8'}));

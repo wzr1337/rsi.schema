@@ -31,7 +31,7 @@ export async function validate(candidatePath?:string):Promise<any> {
   // To use Ajv with draft-06 schemas you need to explicitly add the meta-schema to the validator instance
   ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
 
-  let validate = ajv.compile(readFile(path.join(__dirname, './$rsi.schema.json')));
+  let validate = ajv.compile(readFile(path.join(__dirname, './rsi.schema.json')));
   // @TODO: To allow maintaining the validator separately from the schema, 
   // it should be pulled from the server by th url referenced in the candidate
   

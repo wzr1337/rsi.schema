@@ -18,7 +18,7 @@
     "typescript": "^3.1.1"
   },
   "scripts": {
-    "build:schema": "node ./src/convert.js && cp ./src/\\$rsi.schema.yml ./dist/\\$rsi.schema.yml",
+    "build:schema": "mkdir -p dist && cp ./src/\\rsi.schema.yml ./dist/\\rsi.schema.yml && node ./src/convert.js",
     "build:validator": "tsc",
     "validate": "node ./dist/cli.js",
     "validate:media": "npm run validate -- media",

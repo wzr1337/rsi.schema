@@ -38,7 +38,7 @@ The `<>` notation us understood as a place holder.
 {
   "name": "rsi.service.<name>", // holds the service <name> prefixed with `rsi.service` => everything will be hosted under /<service>/
   "description" : "Lorem Ipsum amet sit", // holds a mandatory description for the service
-  "$schema": "https://github.com/wzr1337/rsi.schema/blob/2.0.0/dist/$rsi.schema.json", // the reference to the current validation schema
+  "$schema": "https://raw.githubusercontent.com/wzr1337/rsi.schema/2.0.0/dist/rsi.schema.json", // the reference to the current validation schema
   "resources" : { // holds all the resources as an object structure
     "<resourceName>": { // the <resourceName> of the resource we are defining => everything will be hosted under /<service>/<resourceName>/
       "description": "Lorem Ipsum amet sit", // a mandatory resource description answering the question: "What kindof elements are held in the resource
